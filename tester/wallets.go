@@ -136,8 +136,7 @@ func (tester *Tester) prepareChildWallet(childIdx uint64, client *txbuilder.Clie
 		idxBytes = append(idxBytes, childWalletSeedBytes...)
 	}
 	childKey := sha256.Sum256(append(common.FromHex(tester.config.WalletSeed), idxBytes...))
-
-	childWallet, err := txbuilder.NewWallet(fmt.Sprintf("%x", childKey))
+	childWallet, err := txbuilder.NewWallet(fmt.Sprintf("%x", [48]byte(PadTo(childKey[:], 48))))
 	if err != nil {
 		return nil, nil, err
 	}
@@ -371,4 +370,13 @@ func (tester *Tester) sendTxRange(txList []*types.Transaction, client *txbuilder
 	wg.Done()
 	wg.Wait()
 	return nil
+}
+
+// PadTo pads a byte slice to the given size. If the byte slice is larger than the given size, the
+// original slice is returned.
+func PadTo(b []byte, size int) []byte {
+	if len(b) >= size {
+		return b
+	}
+	return append(b, make([]byte, size-len(b))...)
 }
