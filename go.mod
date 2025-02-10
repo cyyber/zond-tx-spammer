@@ -1,4 +1,4 @@
-module github.com/ethpandaops/spamoor
+module github.com/theQRL/tx-spammer
 
 go 1.22
 

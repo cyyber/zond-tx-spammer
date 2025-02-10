@@ -12,9 +12,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
 	"github.com/holiman/uint256"
+	"github.com/theQRL/tx-spammer/txbuilder"
+	"github.com/theQRL/tx-spammer/utils"
 )
 
 func (tester *Tester) PrepareWallets(seed string) error {

@@ -7,7 +7,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"math/big"
-	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -18,10 +17,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/ethpandaops/spamoor/scenariotypes"
-	"github.com/ethpandaops/spamoor/tester"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
+	"github.com/theQRL/tx-spammer/scenariotypes"
+	"github.com/theQRL/tx-spammer/tester"
+	"github.com/theQRL/tx-spammer/txbuilder"
+	"github.com/theQRL/tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
@@ -242,12 +241,13 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 	txCallData := []byte{}
 
 	if s.options.Data != "" {
-		dataBytes, err := txbuilder.ParseBlobRefsBytes(strings.Split(s.options.Data, ","), nil)
-		if err != nil {
-			return nil, nil, wallet, err
-		}
+		// TODO(rgeraldes24)
+		// dataBytes, err := txbuilder.ParseBlobRefsBytes(strings.Split(s.options.Data, ","), nil)
+		// if err != nil {
+		// 	return nil, nil, wallet, err
+		// }
 
-		txCallData = dataBytes
+		// txCallData = dataBytes
 	}
 
 	txData, err := txbuilder.SetCodeTx(&txbuilder.TxMetadata{

@@ -1,8 +1,8 @@
 package scenariotypes
 
 import (
-	"github.com/ethpandaops/spamoor/tester"
 	"github.com/spf13/pflag"
+	"github.com/theQRL/tx-spammer/tester"
 )
 
 type Scenario interface {

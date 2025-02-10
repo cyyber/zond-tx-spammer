@@ -16,11 +16,11 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/ethpandaops/spamoor/scenarios/erctx/contract"
-	"github.com/ethpandaops/spamoor/scenariotypes"
-	"github.com/ethpandaops/spamoor/tester"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
+	"github.com/theQRL/tx-spammer/scenarios/erctx/contract"
+	"github.com/theQRL/tx-spammer/scenariotypes"
+	"github.com/theQRL/tx-spammer/tester"
+	"github.com/theQRL/tx-spammer/txbuilder"
+	"github.com/theQRL/tx-spammer/utils"
 )
 
 type ScenarioOptions struct {

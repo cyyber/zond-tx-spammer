@@ -6,5 +6,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 RUN update-ca-certificates
 COPY bin/* /app
 EXPOSE 8080
-ENTRYPOINT ["./spamoor"]
+ENTRYPOINT ["./tx-spammer"]
 CMD []

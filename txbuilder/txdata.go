@@ -9,7 +9,6 @@ import (
 type TxMetadata struct {
 	GasTipCap  *uint256.Int // a.k.a. maxPriorityFeePerGas
 	GasFeeCap  *uint256.Int // a.k.a. maxFeePerGas
-	BlobFeeCap *uint256.Int // a.k.a. maxFeePerBlobGas
 	Gas        uint64
 	To         *common.Address
 	Value      *uint256.Int

@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
+	"github.com/theQRL/tx-spammer/txbuilder"
+	"github.com/theQRL/tx-spammer/utils"
 )
 
 type Tester struct {
@@ -31,8 +31,8 @@ type Tester struct {
 }
 
 type TesterConfig struct {
-	RpcHosts       []string     // rpc host urls to use for blob tests
-	WalletPrivkey  string       // pre-funded wallet privkey to use for blob tests
+	RpcHosts       []string     // rpc host urls to use
+	WalletPrivkey  string       // pre-funded wallet privkey
 	WalletCount    uint64       // number of child wallets to generate & use (based on walletPrivkey)
 	WalletPrefund  *uint256.Int // amount of funds to send to each child wallet
 	WalletMinfund  *uint256.Int // min amount of funds child wallets should hold - refill with walletPrefund if lower
@@ -60,7 +60,7 @@ func (tester *Tester) Start(seed string) error {
 
 	tester.logger.WithFields(logrus.Fields{
 		"version": utils.GetBuildVersion(),
-	}).Infof("starting blob testing tool")
+	}).Infof("starting testing tool")
 
 	// prepare clients
 	err = tester.PrepareClients()

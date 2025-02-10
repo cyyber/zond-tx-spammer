@@ -8,17 +8,17 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethpandaops/spamoor/utils"
+	"github.com/theQRL/tx-spammer/utils"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethpandaops/spamoor/scenariotypes"
-	"github.com/ethpandaops/spamoor/tester"
-	"github.com/ethpandaops/spamoor/txbuilder"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
+	"github.com/theQRL/tx-spammer/scenariotypes"
+	"github.com/theQRL/tx-spammer/tester"
+	"github.com/theQRL/tx-spammer/txbuilder"
 )
 
 type ScenarioOptions struct {
