@@ -67,14 +67,14 @@ jobs:
     uses: ./.github/workflows/_shared-check.yaml
 
   build_binaries:
-    name: "Build Spamoor"
+    name: "Build tx-spammer"
     needs: [prinfo, check_source]
     if: ${{ needs.prinfo.outputs.run_builds == 'true' }}
     uses: ./.github/workflows/_shared-build.yaml
     with:
       ref: ${{ needs.prinfo.outputs.commit_ref }}
       docker: ${{ needs.prinfo.outputs.build_docker == 'true' }}
-      docker_repository: "ethpandaops/spamoor"
+      docker_repository: "theqrl/tx-spammer"
       docker_tag_prefix: ${{needs.prinfo.outputs.docker_tag}}
       additional_tags: "['${{needs.prinfo.outputs.docker_tag}}','${{needs.prinfo.outputs.docker_tag}}-latest']"
     secrets:

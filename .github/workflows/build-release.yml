@@ -13,13 +13,13 @@ permissions:
 
 jobs:
   build_binaries:
-    name: "Build Spamoor"
+    name: "Build tx-spammer"
     uses: ./.github/workflows/_shared-build.yaml
     with:
       ref: ${{ github.sha }}
       release: "v${{ inputs.version }}"
       docker: true
-      docker_repository: "ethpandaops/spamoor"
+      docker_repository: "theqrl/tx-spammer"
       docker_tag_prefix: "v${{ inputs.version }}"
       additional_tags: "['v${{ inputs.version }}','latest']"
     secrets:
@@ -68,84 +68,84 @@ jobs:
           ${{ steps.changelog.outputs.changelog }}
 
           ### Release Artifacts
-          Please read through the [wiki](https://github.com/ethpandaops/spamoor/wiki) for setup & configuration instructions.
+          Please read through the [wiki](https://github.com/theQRL/tx-spammer/wiki) for setup & configuration instructions.
           | Release File  | Description |
           | ------------- | ------------- |
-          | [spamoor_${{ inputs.version }}_windows_amd64.zip](https://github.com/ethpandaops/spamoor/releases/download/v${{ inputs.version }}/spamoor_${{ inputs.version }}_windows_amd64.zip) | spamoor executables for windows/amd64 |
-          | [spamoor_${{ inputs.version }}_linux_amd64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/v${{ inputs.version }}/spamoor_${{ inputs.version }}_linux_amd64.tar.gz) | spamoor executables for linux/amd64 |
-          | [spamoor_${{ inputs.version }}_linux_arm64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/v${{ inputs.version }}/spamoor_${{ inputs.version }}_linux_arm64.tar.gz) | spamoor executables for linux/arm64 |
-          | [spamoor_${{ inputs.version }}_darwin_amd64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/v${{ inputs.version }}/spamoor_${{ inputs.version }}_darwin_amd64.tar.gz) | spamoor executable for macos/amd64 |
-          | [spamoor_${{ inputs.version }}_darwin_arm64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/v${{ inputs.version }}/spamoor_${{ inputs.version }}_darwin_arm64.tar.gz) | spamoor executable for macos/arm64 |
+          | [tx_spammer_${{ inputs.version }}_windows_amd64.zip](https://github.com/theQRL/tx-spammer/releases/download/v${{ inputs.version }}/tx_spammer_${{ inputs.version }}_windows_amd64.zip) | tx-spammer executables for windows/amd64 |
+          | [tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz](https://github.com/theQRL/tx-spammer/releases/download/v${{ inputs.version }}/tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz) | tx-spammer executables for linux/amd64 |
+          | [tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz](https://github.com/theQRL/tx-spammer/releases/download/v${{ inputs.version }}/tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz) | tx-spammer executables for linux/arm64 |
+          | [tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz](https://github.com/theQRL/tx-spammer/releases/download/v${{ inputs.version }}/tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz) | tx-spammer executable for macos/amd64 |
+          | [tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz](https://github.com/theQRL/tx-spammer/releases/download/v${{ inputs.version }}/tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz) | tx-spammer executable for macos/arm64 |
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
     # generate & upload release artifacts
-    - name: "Generate release package: spamoor_${{ inputs.version }}_windows_amd64.zip"
+    - name: "Generate release package: tx_spammer_${{ inputs.version }}_windows_amd64.zip"
       run: |
-        cd spamoor_windows_amd64
-        zip -r -q ../spamoor_${{ inputs.version }}_windows_amd64.zip .
-    - name: "Upload release artifact: spamoor_${{ inputs.version }}_windows_amd64.zip"
+        cd tx_spammer_windows_amd64
+        zip -r -q ../tx_spammer_${{ inputs.version }}_windows_amd64.zip .
+    - name: "Upload release artifact: tx_spammer_${{ inputs.version }}_windows_amd64.zip"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./spamoor_${{ inputs.version }}_windows_amd64.zip
-        asset_name: spamoor_${{ inputs.version }}_windows_amd64.zip
+        asset_path: ./tx_spammer_${{ inputs.version }}_windows_amd64.zip
+        asset_name: tx_spammer_${{ inputs.version }}_windows_amd64.zip
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
     
-    - name: "Generate release package: spamoor_${{ inputs.version }}_linux_amd64.tar.gz"
+    - name: "Generate release package: tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz"
       run: |
-        cd spamoor_linux_amd64
-        tar -czf ../spamoor_${{ inputs.version }}_linux_amd64.tar.gz .
-    - name: "Upload release artifact: spamoor_${{ inputs.version }}_linux_amd64.tar.gz"
+        cd tx_spammer_linux_amd64
+        tar -czf ../tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz .
+    - name: "Upload release artifact: tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./spamoor_${{ inputs.version }}_linux_amd64.tar.gz
-        asset_name: spamoor_${{ inputs.version }}_linux_amd64.tar.gz
+        asset_path: ./tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz
+        asset_name: tx_spammer_${{ inputs.version }}_linux_amd64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
     
-    - name: "Generate release package: spamoor_${{ inputs.version }}_linux_arm64.tar.gz"
+    - name: "Generate release package: tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz"
       run: |
-        cd spamoor_linux_arm64
-        tar -czf ../spamoor_${{ inputs.version }}_linux_arm64.tar.gz .
-    - name: "Upload release artifact: spamoor_${{ inputs.version }}_linux_arm64.tar.gz"
+        cd tx_spammer_linux_arm64
+        tar -czf ../tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz .
+    - name: "Upload release artifact: tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./spamoor_${{ inputs.version }}_linux_arm64.tar.gz
-        asset_name: spamoor_${{ inputs.version }}_linux_arm64.tar.gz
+        asset_path: ./tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz
+        asset_name: tx_spammer_${{ inputs.version }}_linux_arm64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
     
-    - name: "Generate release package: spamoor_${{ inputs.version }}_darwin_amd64.tar.gz"
+    - name: "Generate release package: tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz"
       run: |
-        cd spamoor_darwin_amd64
-        tar -czf ../spamoor_${{ inputs.version }}_darwin_amd64.tar.gz .
-    - name: "Upload release artifact: spamoor_${{ inputs.version }}_darwin_amd64.tar.gz"
+        cd tx_spammer_darwin_amd64
+        tar -czf ../tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz .
+    - name: "Upload release artifact: tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./spamoor_${{ inputs.version }}_darwin_amd64.tar.gz
-        asset_name: spamoor_${{ inputs.version }}_darwin_amd64.tar.gz
+        asset_path: ./tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz
+        asset_name: tx_spammer_${{ inputs.version }}_darwin_amd64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-    - name: "Generate release package: spamoor_${{ inputs.version }}_darwin_arm64.tar.gz"
+    - name: "Generate release package: tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz"
       run: |
-        cd spamoor_darwin_arm64
-        tar -czf ../spamoor_${{ inputs.version }}_darwin_arm64.tar.gz .
-    - name: "Upload release artifact: spamoor_${{ inputs.version }}_darwin_arm64.tar.gz"
+        cd tx_spammer_darwin_arm64
+        tar -czf ../tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz .
+    - name: "Upload release artifact: tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./spamoor_${{ inputs.version }}_darwin_arm64.tar.gz
-        asset_name: spamoor_${{ inputs.version }}_darwin_arm64.tar.gz
+        asset_path: ./tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz
+        asset_name: tx_spammer_${{ inputs.version }}_darwin_arm64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
