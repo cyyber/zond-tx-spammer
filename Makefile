@@ -1,9 +1,9 @@
 # tx-spammer
 VERSION := $(shell git rev-parse --short HEAD)
 BUILDTIME := $(shell date -u '+%Y-%m-%dT%H:%M:%SZ')
-GOLDFLAGS += -X 'github.com/theQRL/tx-spammer/utils.BuildVersion="$(VERSION)"'
-GOLDFLAGS += -X 'github.com/theQRL/tx-spammer/utils.BuildTime="$(BUILDTIME)"'
-GOLDFLAGS += -X 'github.com/theQRL/tx-spammer/utils.BuildRelease="$(RELEASE)"'
+GOLDFLAGS += -X 'github.com/theQRL/zond-tx-spammer/utils.BuildVersion="$(VERSION)"'
+GOLDFLAGS += -X 'github.com/theQRL/zond-tx-spammer/utils.BuildTime="$(BUILDTIME)"'
+GOLDFLAGS += -X 'github.com/theQRL/zond-tx-spammer/utils.BuildRelease="$(RELEASE)"'
 
 .PHONY: all test clean
 

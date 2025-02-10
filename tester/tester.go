@@ -10,8 +10,8 @@ import (
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/theQRL/go-zond/common"
-	"github.com/theQRL/tx-spammer/txbuilder"
-	"github.com/theQRL/tx-spammer/utils"
+	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type Tester struct {

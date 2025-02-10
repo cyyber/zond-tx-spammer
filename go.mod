@@ -1,4 +1,4 @@
-module github.com/theQRL/tx-spammer
+module github.com/theQRL/zond-tx-spammer
 
 go 1.22
 

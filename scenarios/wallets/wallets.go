@@ -5,9 +5,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/theQRL/tx-spammer/scenariotypes"
-	"github.com/theQRL/tx-spammer/tester"
-	"github.com/theQRL/tx-spammer/utils"
+	"github.com/theQRL/zond-tx-spammer/scenariotypes"
+	"github.com/theQRL/zond-tx-spammer/tester"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {

@@ -12,7 +12,7 @@ You can use this tool via pre-build docker images: [theqrl/tx-spammer](https://h
 Or build it yourself:
 
 ```
-git clone https://github.com/theQRL/tx-spammer.git
+git clone https://github.com/theQRL/zond-tx-spammer.git
 cd tx-spammer
 make
 ./bin/tx-spammer

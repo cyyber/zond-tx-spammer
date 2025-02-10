@@ -16,11 +16,11 @@ import (
 	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/go-zond/core/types"
 
-	"github.com/theQRL/tx-spammer/scenarios/erctx/contract"
-	"github.com/theQRL/tx-spammer/scenariotypes"
-	"github.com/theQRL/tx-spammer/tester"
-	"github.com/theQRL/tx-spammer/txbuilder"
-	"github.com/theQRL/tx-spammer/utils"
+	"github.com/theQRL/zond-tx-spammer/scenarios/erctx/contract"
+	"github.com/theQRL/zond-tx-spammer/scenariotypes"
+	"github.com/theQRL/zond-tx-spammer/tester"
+	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
