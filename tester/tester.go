@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
+	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/tx-spammer/txbuilder"
 	"github.com/theQRL/tx-spammer/utils"
 )
@@ -32,8 +32,8 @@ type Tester struct {
 
 type TesterConfig struct {
 	RpcHosts       []string     // rpc host urls to use
-	WalletPrivkey  string       // pre-funded wallet privkey
-	WalletCount    uint64       // number of child wallets to generate & use (based on walletPrivkey)
+	WalletSeed     string       // pre-funded wallet seed
+	WalletCount    uint64       // number of child wallets to generate & use (based on walletSeed)
 	WalletPrefund  *uint256.Int // amount of funds to send to each child wallet
 	WalletMinfund  *uint256.Int // min amount of funds child wallets should hold - refill with walletPrefund if lower
 	RefillInterval uint64
@@ -51,7 +51,7 @@ func (tester *Tester) SetScenario(name string) {
 	tester.logger = logrus.WithField("tester", name)
 }
 
-func (tester *Tester) Start(seed string) error {
+func (tester *Tester) Start(childWalletSeed string) error {
 	var err error
 	if tester.running {
 		return fmt.Errorf("already started")
@@ -90,7 +90,7 @@ func (tester *Tester) Start(seed string) error {
 	})
 
 	// prepare wallets
-	err = tester.PrepareWallets(seed)
+	err = tester.PrepareWallets(childWalletSeed)
 	if err != nil {
 		return err
 	}

@@ -9,11 +9,11 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
 
 	"github.com/theQRL/tx-spammer/scenariotypes"
 	"github.com/theQRL/tx-spammer/tester"

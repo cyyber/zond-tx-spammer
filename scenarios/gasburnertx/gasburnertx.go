@@ -10,12 +10,12 @@ import (
 
 	"github.com/theQRL/tx-spammer/utils"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
+	"github.com/theQRL/go-zond/accounts/abi/bind"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
 	"github.com/theQRL/tx-spammer/scenariotypes"
 	"github.com/theQRL/tx-spammer/tester"
 	"github.com/theQRL/tx-spammer/txbuilder"
@@ -208,7 +208,7 @@ func (s *Scenario) sendDeploymentTx() (*types.Receipt, *txbuilder.Client, error)
 		GasTipCap: uint256.MustFromBig(tipCap),
 		Gas:       2000000,
 	}, func(transactOpts *bind.TransactOpts) (*types.Transaction, error) {
-		_, deployTx, _, err := DeployGasBurner(transactOpts, client.GetEthClient())
+		_, deployTx, _, err := DeployGasBurner(transactOpts, client.GetZondClient())
 		return deployTx, err
 	})
 	if err != nil {
@@ -355,5 +355,5 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 
 func (s *Scenario) GetGasBurner() (*GasBurner, error) {
 	client := s.tester.GetClient(tester.SelectByIndex, 0)
-	return NewGasBurner(s.gasBurnerContractAddr, client.GetEthClient())
+	return NewGasBurner(s.gasBurnerContractAddr, client.GetZondClient())
 }

@@ -26,13 +26,13 @@ make
 ```
 Usage of tx-spammer:
 Required:
-  -p, --privkey string        The private key of the wallet to send funds from.
+  -p, --seed string        The seed of the wallet to send funds from.
   
   -h, --rpchost string        The RPC host to send transactions to (multiple allowed).
       --rpchost-file string   File with a list of RPC hosts to send transactions to.
       
 Optional:
-  -s, --seed string           The child wallet seed.
+  -s, --seed-child string           The child wallet seed.
   -v, --verbose               Run the tool with verbose output.
 ```
 
