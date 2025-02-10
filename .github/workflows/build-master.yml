@@ -1,0 +1,187 @@
+
+name: Build master
+
+on:
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+
+  check_source:
+    name: "Run code checks"
+    uses: ./.github/workflows/_shared-check.yaml
+
+  build_binaries:
+    name: "Build Spamoor"
+    needs: [check_source]
+    uses: ./.github/workflows/_shared-build.yaml
+    with:
+      ref: ${{ github.sha }}
+      release: "snapshot"
+      docker: true
+      docker_repository: "ethpandaops/spamoor"
+      docker_tag_prefix: "master"
+      additional_tags: "['master','master-latest']"
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  create_snapshot_release:
+    name: Create snapshot release
+    needs: [build_binaries]
+    runs-on: ubuntu-latest
+    steps:
+    # download build artifacts
+    - name: "Download build artifacts"
+      uses: actions/download-artifact@v4
+
+    # (re)create snapshot binary release
+    - name: Update snapshot tag & remove previous snapshot release
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          try {
+            var snapshotTag = "snapshot";
+            var snapshotRelease = await github.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: snapshotTag
+            });
+            if(snapshotRelease && snapshotRelease.data && snapshotRelease.data.tag_name == snapshotTag) {
+              console.log("delete previous snapshot release");
+              await github.repos.deleteRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                release_id: snapshotRelease.data.id
+              });
+            }
+
+            var snapshotRef = await github.git.getRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "tags/" + snapshotTag
+            });
+            if(snapshotRef && snapshotRef.data && snapshotRef.data.ref) {
+              if(snapshotRef.data.object.sha !== context.sha) {
+                await github.git.updateRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: "tags/" + snapshotTag,
+                  sha: context.sha,
+                });
+              }
+            }
+            else {
+              await github.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: "tags/" + snapshotTag,
+                sha: context.sha,
+              });
+            }
+          } catch (e) {
+            console.log(e)
+          }
+    - name: Create snapshot release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: true
+        release_name: "Dev Snapshot"
+        tag_name: "snapshot"
+        body: |
+          ## Latest automatically built executables. (Unstable development snapshot)
+          Built from master branch (commit: ${{ github.sha }})
+
+          ### Release Artifacts
+          | Release File  | Description |
+          | ------------- | ------------- |
+          | [spamoor_snapshot_windows_amd64.zip](https://github.com/ethpandaops/spamoor/releases/download/snapshot/spamoor_snapshot_windows_amd64.zip) | spamoor executables for windows/amd64 |
+          | [spamoor_snapshot_linux_amd64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/snapshot/spamoor_snapshot_linux_amd64.tar.gz) | spamoor executables for linux/amd64 |
+          | [spamoor_snapshot_linux_arm64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/snapshot/spamoor_snapshot_linux_arm64.tar.gz) | spamoor executables for linux/arm64 |
+          | [spamoor_snapshot_darwin_amd64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/snapshot/spamoor_snapshot_darwin_amd64.tar.gz) | spamoor executable for macos/amd64 |
+          | [spamoor_snapshot_darwin_arm64.tar.gz](https://github.com/ethpandaops/spamoor/releases/download/snapshot/spamoor_snapshot_darwin_arm64.tar.gz) | spamoor executable for macos/arm64 |
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+    # generate & upload release artifacts
+    - name: "Generate release package: spamoor_snapshot_windows_amd64.zip"
+      run: |
+        cd spamoor_windows_amd64
+        zip -r -q ../spamoor_snapshot_windows_amd64.zip .
+    - name: "Upload snapshot release artifact: spamoor_snapshot_windows_amd64.zip"
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./spamoor_snapshot_windows_amd64.zip
+        asset_name: spamoor_snapshot_windows_amd64.zip
+        asset_content_type: application/octet-stream
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    
+    - name: "Generate release package: spamoor_snapshot_linux_amd64.tar.gz"
+      run: |
+        cd spamoor_linux_amd64
+        tar -czf ../spamoor_snapshot_linux_amd64.tar.gz .
+    - name: "Upload snapshot release artifact: spamoor_snapshot_linux_amd64.tar.gz"
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./spamoor_snapshot_linux_amd64.tar.gz
+        asset_name: spamoor_snapshot_linux_amd64.tar.gz
+        asset_content_type: application/octet-stream
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    
+    - name: "Generate release package: spamoor_snapshot_linux_arm64.tar.gz"
+      run: |
+        cd spamoor_linux_arm64
+        tar -czf ../spamoor_snapshot_linux_arm64.tar.gz .
+    - name: "Upload snapshot release artifact: spamoor_snapshot_linux_arm64.tar.gz"
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./spamoor_snapshot_linux_arm64.tar.gz
+        asset_name: spamoor_snapshot_linux_arm64.tar.gz
+        asset_content_type: application/octet-stream
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    
+    - name: "Generate release package: spamoor_snapshot_darwin_amd64.tar.gz"
+      run: |
+        cd spamoor_darwin_amd64
+        tar -czf ../spamoor_snapshot_darwin_amd64.tar.gz .
+    - name: "Upload snapshot release artifact: spamoor_snapshot_darwin_amd64.tar.gz"
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./spamoor_snapshot_darwin_amd64.tar.gz
+        asset_name: spamoor_snapshot_darwin_amd64.tar.gz
+        asset_content_type: application/octet-stream
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+    - name: "Generate release package: spamoor_snapshot_darwin_arm64.tar.gz"
+      run: |
+        cd spamoor_darwin_arm64
+        tar -czf ../spamoor_snapshot_darwin_arm64.tar.gz .
+    - name: "Upload snapshot release artifact: spamoor_snapshot_darwin_arm64.tar.gz"
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./spamoor_snapshot_darwin_arm64.tar.gz
+        asset_name: spamoor_snapshot_darwin_arm64.tar.gz
+        asset_content_type: application/octet-stream
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
