@@ -63,10 +63,9 @@ func NewClient(rpchost string) (*Client, error) {
 	}, nil
 }
 
-// TODO(rgeraldes24)
 func (client *Client) GetName() string {
 	url, _ := url.Parse(client.rpchost)
-	name := strings.TrimSuffix(url.Host, ".ethpandaops.io")
+	name := strings.TrimSuffix(url.Host, ".theqrl.org")
 	return name
 }
 

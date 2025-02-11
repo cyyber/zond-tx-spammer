@@ -220,13 +220,11 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 	txCallData := []byte{}
 
 	if s.options.Data != "" {
-		// TODO(rgeraldes24)
-		// dataBytes, err := txbuilder.ParseBlobRefsBytes(strings.Split(s.options.Data, ","), nil)
-		// if err != nil {
-		// 	return nil, nil, wallet, err
-		// }
-
-		// txCallData = dataBytes
+		data := common.FromHex(s.options.Data)
+		if data == nil {
+			return nil, nil, nil, fmt.Errorf("invalid data")
+		}
+		txCallData = data
 	}
 
 	txData, err := txbuilder.DynFeeTx(&txbuilder.TxMetadata{
