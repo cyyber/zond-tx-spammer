@@ -220,11 +220,11 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 	txCallData := []byte{}
 
 	if s.options.Data != "" {
-		data := common.FromHex(s.options.Data)
-		if data == nil {
+		dataBytes := common.FromHex(s.options.Data)
+		if dataBytes == nil {
 			return nil, nil, nil, fmt.Errorf("invalid data")
 		}
-		txCallData = data
+		txCallData = dataBytes
 	}
 
 	txData, err := txbuilder.DynFeeTx(&txbuilder.TxMetadata{
