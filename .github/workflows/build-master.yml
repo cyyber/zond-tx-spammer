@@ -28,7 +28,7 @@ jobs:
       ref: ${{ github.sha }}
       release: "snapshot"
       docker: true
-      docker_repository: "theqrl/tx-spammer"
+      docker_repository: "theqrl/zond-tx-spammer"
       docker_tag_prefix: "master"
       additional_tags: "['master','master-latest']"
     secrets:
