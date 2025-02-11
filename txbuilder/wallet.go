@@ -37,14 +37,14 @@ func NewWallet(seed string) (*Wallet, error) {
 	wallet := &Wallet{
 		txNonceChans: map[uint64]*nonceStatus{},
 	}
-	err := wallet.loadSeed(seed)
+	err := wallet.loadKeyFromSeed(seed)
 	if err != nil {
 		return nil, err
 	}
 	return wallet, nil
 }
 
-func (wallet *Wallet) loadSeed(seed string) error {
+func (wallet *Wallet) loadKeyFromSeed(seed string) error {
 	var dilithiumKey *dilithium.Dilithium
 	if seed == "" {
 		var err error
