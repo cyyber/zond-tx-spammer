@@ -6,7 +6,7 @@ tx-spammer can be used for stress testing (flooding the network with thousands o
 
 ## Build
 
-You can use this tool via pre-build docker images: [theqrl/tx-spammer](https://hub.docker.com/r/theqrl/tx-spammer)
+You can use this tool via pre-build docker images: [theqrl/zond-tx-spammer](https://hub.docker.com/r/theqrl/zond-tx-spammer)
 
 Or build it yourself:
 
