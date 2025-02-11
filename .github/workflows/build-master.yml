@@ -107,81 +107,81 @@ jobs:
           ### Release Artifacts
           | Release File  | Description |
           | ------------- | ------------- |
-          | [tx_spammer_snapshot_windows_amd64.zip](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx_spammer_snapshot_windows_amd64.zip) | tx-spammer executables for windows/amd64 |
-          | [tx_spammer_snapshot_linux_amd64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx_spammer_snapshot_linux_amd64.tar.gz) | tx-spammer executables for linux/amd64 |
-          | [tx_spammer_snapshot_linux_arm64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx_spammer_snapshot_linux_arm64.tar.gz) | tx-spammer executables for linux/arm64 |
-          | [tx_spammer_snapshot_darwin_amd64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx_spammer_snapshot_darwin_amd64.tar.gz) | tx-spammer executable for macos/amd64 |
-          | [tx_spammer_snapshot_darwin_arm64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx_spammer_snapshot_darwin_arm64.tar.gz) | tx-spammer executable for macos/arm64 |
+          | [tx-spammer_snapshot_windows_amd64.zip](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx-spammer_snapshot_windows_amd64.zip) | tx-spammer executables for windows/amd64 |
+          | [tx-spammer_snapshot_linux_amd64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx-spammer_snapshot_linux_amd64.tar.gz) | tx-spammer executables for linux/amd64 |
+          | [tx-spammer_snapshot_linux_arm64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx-spammer_snapshot_linux_arm64.tar.gz) | tx-spammer executables for linux/arm64 |
+          | [tx-spammer_snapshot_darwin_amd64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx-spammer_snapshot_darwin_amd64.tar.gz) | tx-spammer executable for macos/amd64 |
+          | [tx-spammer_snapshot_darwin_arm64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/snapshot/tx-spammer_snapshot_darwin_arm64.tar.gz) | tx-spammer executable for macos/arm64 |
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
     # generate & upload release artifacts
-    - name: "Generate release package: tx_spammer_snapshot_windows_amd64.zip"
+    - name: "Generate release package: tx-spammer_snapshot_windows_amd64.zip"
       run: |
-        cd tx_spammer_windows_amd64
-        zip -r -q ../tx_spammer_snapshot_windows_amd64.zip .
-    - name: "Upload snapshot release artifact: tx_spammer_snapshot_windows_amd64.zip"
+        cd tx-spammer_windows_amd64
+        zip -r -q ../tx-spammer_snapshot_windows_amd64.zip .
+    - name: "Upload snapshot release artifact: tx-spammer_snapshot_windows_amd64.zip"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./tx_spammer_snapshot_windows_amd64.zip
-        asset_name: tx_spammer_snapshot_windows_amd64.zip
+        asset_path: ./tx-spammer_snapshot_windows_amd64.zip
+        asset_name: tx-spammer_snapshot_windows_amd64.zip
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
     
-    - name: "Generate release package: tx_spammer_snapshot_linux_amd64.tar.gz"
+    - name: "Generate release package: tx-spammer_snapshot_linux_amd64.tar.gz"
       run: |
-        cd tx_spammer_linux_amd64
-        tar -czf ../tx_spammer_snapshot_linux_amd64.tar.gz .
-    - name: "Upload snapshot release artifact: tx_spammer_snapshot_linux_amd64.tar.gz"
+        cd tx-spammer_linux_amd64
+        tar -czf ../tx-spammer_snapshot_linux_amd64.tar.gz .
+    - name: "Upload snapshot release artifact: tx-spammer_snapshot_linux_amd64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./tx_spammer_snapshot_linux_amd64.tar.gz
-        asset_name: tx_spammer_snapshot_linux_amd64.tar.gz
+        asset_path: ./tx-spammer_snapshot_linux_amd64.tar.gz
+        asset_name: tx-spammer_snapshot_linux_amd64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
     
-    - name: "Generate release package: tx_spammer_snapshot_linux_arm64.tar.gz"
+    - name: "Generate release package: tx-spammer_snapshot_linux_arm64.tar.gz"
       run: |
-        cd tx_spammer_linux_arm64
-        tar -czf ../tx_spammer_snapshot_linux_arm64.tar.gz .
-    - name: "Upload snapshot release artifact: tx_spammer_snapshot_linux_arm64.tar.gz"
+        cd tx-spammer_linux_arm64
+        tar -czf ../tx-spammer_snapshot_linux_arm64.tar.gz .
+    - name: "Upload snapshot release artifact: tx-spammer_snapshot_linux_arm64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./tx_spammer_snapshot_linux_arm64.tar.gz
-        asset_name: tx_spammer_snapshot_linux_arm64.tar.gz
+        asset_path: ./tx-spammer_snapshot_linux_arm64.tar.gz
+        asset_name: tx-spammer_snapshot_linux_arm64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
     
-    - name: "Generate release package: tx_spammer_snapshot_darwin_amd64.tar.gz"
+    - name: "Generate release package: tx-spammer_snapshot_darwin_amd64.tar.gz"
       run: |
-        cd tx_spammer_darwin_amd64
-        tar -czf ../tx_spammer_snapshot_darwin_amd64.tar.gz .
-    - name: "Upload snapshot release artifact: tx_spammer_snapshot_darwin_amd64.tar.gz"
+        cd tx-spammer_darwin_amd64
+        tar -czf ../tx-spammer_snapshot_darwin_amd64.tar.gz .
+    - name: "Upload snapshot release artifact: tx-spammer_snapshot_darwin_amd64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./tx_spammer_snapshot_darwin_amd64.tar.gz
-        asset_name: tx_spammer_snapshot_darwin_amd64.tar.gz
+        asset_path: ./tx-spammer_snapshot_darwin_amd64.tar.gz
+        asset_name: tx-spammer_snapshot_darwin_amd64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-    - name: "Generate release package: tx_spammer_snapshot_darwin_arm64.tar.gz"
+    - name: "Generate release package: tx-spammer_snapshot_darwin_arm64.tar.gz"
       run: |
-        cd tx_spammer_darwin_arm64
-        tar -czf ../tx_spammer_snapshot_darwin_arm64.tar.gz .
-    - name: "Upload snapshot release artifact: tx_spammer_snapshot_darwin_arm64.tar.gz"
+        cd tx-spammer_darwin_arm64
+        tar -czf ../tx-spammer_snapshot_darwin_arm64.tar.gz .
+    - name: "Upload snapshot release artifact: tx-spammer_snapshot_darwin_arm64.tar.gz"
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./tx_spammer_snapshot_darwin_arm64.tar.gz
-        asset_name: tx_spammer_snapshot_darwin_arm64.tar.gz
+        asset_path: ./tx-spammer_snapshot_darwin_arm64.tar.gz
+        asset_name: tx-spammer_snapshot_darwin_arm64.tar.gz
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ github.token }}
