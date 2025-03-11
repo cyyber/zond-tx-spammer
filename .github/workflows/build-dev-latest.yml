@@ -18,14 +18,14 @@ jobs:
     uses: ./.github/workflows/_shared-check.yaml
 
   build_binaries:
-    name: "Build Spamoor"
+    name: "Build tx-spammer"
     needs: [check_source]
     uses: ./.github/workflows/_shared-build.yaml
     with:
       ref: ${{ github.sha }}
       release: "snapshot"
       docker: true
-      docker_repository: "ethpandaops/spamoor"
+      docker_repository: "theqrl/zond-tx-spammer"
       docker_tag_prefix: "master"
       additional_tags: "['master','master-latest','latest']"
     secrets:

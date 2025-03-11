@@ -2,24 +2,21 @@ package txbuilder
 
 import (
 	"context"
-	"crypto/ecdsa"
-	"errors"
 	"math/big"
 	"sync"
 	"sync/atomic"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
+	"github.com/theQRL/go-qrllib/dilithium"
+	"github.com/theQRL/go-zond/accounts/abi/bind"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
 )
 
 type Wallet struct {
 	nonceMutex     sync.Mutex
 	balanceMutex   sync.RWMutex
-	privkey        *ecdsa.PrivateKey
+	dilithiumKey   *dilithium.Dilithium
 	address        common.Address
 	chainid        *big.Int
 	pendingNonce   atomic.Uint64
@@ -36,41 +33,35 @@ type nonceStatus struct {
 	channel chan bool
 }
 
-func NewWallet(privkey string) (*Wallet, error) {
+func NewWallet(seed string) (*Wallet, error) {
 	wallet := &Wallet{
 		txNonceChans: map[uint64]*nonceStatus{},
 	}
-	err := wallet.loadPrivateKey(privkey)
+	err := wallet.loadKeyFromSeed(seed)
 	if err != nil {
 		return nil, err
 	}
 	return wallet, nil
 }
 
-func (wallet *Wallet) loadPrivateKey(privkey string) error {
-	var privateKey *ecdsa.PrivateKey
-	if privkey == "" {
+func (wallet *Wallet) loadKeyFromSeed(seed string) error {
+	var dilithiumKey *dilithium.Dilithium
+	if seed == "" {
 		var err error
-		privateKey, err = crypto.GenerateKey()
+		dilithiumKey, err = dilithium.New()
 		if err != nil {
 			return err
 		}
 	} else {
 		var err error
-		privateKey, err = crypto.HexToECDSA(privkey)
+		dilithiumKey, err = dilithium.NewDilithiumFromHexSeed(seed)
 		if err != nil {
 			return err
 		}
 	}
 
-	publicKey := privateKey.Public()
-	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
-	if !ok {
-		return errors.New("error casting public key to ECDSA")
-	}
-
-	wallet.privkey = privateKey
-	wallet.address = crypto.PubkeyToAddress(*publicKeyECDSA)
+	wallet.dilithiumKey = dilithiumKey
+	wallet.address = dilithiumKey.GetAddress()
 	return nil
 }
 
@@ -78,8 +69,8 @@ func (wallet *Wallet) GetAddress() common.Address {
 	return wallet.address
 }
 
-func (wallet *Wallet) GetPrivateKey() *ecdsa.PrivateKey {
-	return wallet.privkey
+func (wallet *Wallet) GetDilithiumKey() *dilithium.Dilithium {
+	return wallet.dilithiumKey
 }
 
 func (wallet *Wallet) GetChainId() *big.Int {
@@ -144,24 +135,8 @@ func (wallet *Wallet) BuildDynamicFeeTx(txData *types.DynamicFeeTx) (*types.Tran
 	return wallet.signTx(txData)
 }
 
-func (wallet *Wallet) BuildBlobTx(txData *types.BlobTx) (*types.Transaction, error) {
-	wallet.nonceMutex.Lock()
-	txData.ChainID = uint256.MustFromBig(wallet.chainid)
-	txData.Nonce = wallet.pendingNonce.Add(1) - 1
-	wallet.nonceMutex.Unlock()
-	return wallet.signTx(txData)
-}
-
-func (wallet *Wallet) BuildSetCodeTx(txData *types.SetCodeTx) (*types.Transaction, error) {
-	wallet.nonceMutex.Lock()
-	txData.ChainID = wallet.chainid.Uint64()
-	txData.Nonce = wallet.pendingNonce.Add(1) - 1
-	wallet.nonceMutex.Unlock()
-	return wallet.signTx(txData)
-}
-
 func (wallet *Wallet) BuildBoundTx(txData *TxMetadata, buildFn func(transactOpts *bind.TransactOpts) (*types.Transaction, error)) (*types.Transaction, error) {
-	transactor, err := bind.NewKeyedTransactorWithChainID(wallet.privkey, wallet.chainid)
+	transactor, err := bind.NewKeyedTransactorWithChainID(wallet.dilithiumKey, wallet.chainid)
 	if err != nil {
 		return nil, err
 	}
@@ -195,12 +170,6 @@ func (wallet *Wallet) ReplaceDynamicFeeTx(txData *types.DynamicFeeTx, nonce uint
 	return wallet.signTx(txData)
 }
 
-func (wallet *Wallet) ReplaceBlobTx(txData *types.BlobTx, nonce uint64) (*types.Transaction, error) {
-	txData.ChainID = uint256.MustFromBig(wallet.chainid)
-	txData.Nonce = nonce
-	return wallet.signTx(txData)
-}
-
 func (wallet *Wallet) ResetPendingNonce(client *Client) {
 	wallet.nonceMutex.Lock()
 	defer wallet.nonceMutex.Unlock()
@@ -218,7 +187,7 @@ func (wallet *Wallet) ResetPendingNonce(client *Client) {
 
 func (wallet *Wallet) signTx(txData types.TxData) (*types.Transaction, error) {
 	tx := types.NewTx(txData)
-	signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(wallet.chainid), wallet.privkey)
+	signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(wallet.chainid), wallet.dilithiumKey)
 	if err != nil {
 		return nil, err
 	}

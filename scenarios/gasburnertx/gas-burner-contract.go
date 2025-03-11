@@ -5,12 +5,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	zond "github.com/theQRL/go-zond"
+	"github.com/theQRL/go-zond/accounts/abi"
+	"github.com/theQRL/go-zond/accounts/abi/bind"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
+	"github.com/theQRL/go-zond/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -18,7 +18,7 @@ var (
 	_ = errors.New
 	_ = big.NewInt
 	_ = strings.NewReader
-	_ = ethereum.NotFound
+	_ = zond.NotFound
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
@@ -40,7 +40,7 @@ var GasBurnerABI = GasBurnerMetaData.ABI
 // Deprecated: Use GasBurnerMetaData.Bin instead.
 var GasBurnerBin = GasBurnerMetaData.Bin
 
-// DeployGasBurner deploys a new Ethereum contract, binding an instance of GasBurner to it.
+// DeployGasBurner deploys a new Zond contract, binding an instance of GasBurner to it.
 func DeployGasBurner(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *GasBurner, error) {
 	parsed, err := GasBurnerMetaData.GetAbi()
 	if err != nil {
@@ -57,29 +57,29 @@ func DeployGasBurner(auth *bind.TransactOpts, backend bind.ContractBackend) (com
 	return address, tx, &GasBurner{GasBurnerCaller: GasBurnerCaller{contract: contract}, GasBurnerTransactor: GasBurnerTransactor{contract: contract}, GasBurnerFilterer: GasBurnerFilterer{contract: contract}}, nil
 }
 
-// GasBurner is an auto generated Go binding around an Ethereum contract.
+// GasBurner is an auto generated Go binding around an Zond contract.
 type GasBurner struct {
 	GasBurnerCaller     // Read-only binding to the contract
 	GasBurnerTransactor // Write-only binding to the contract
 	GasBurnerFilterer   // Log filterer for contract events
 }
 
-// GasBurnerCaller is an auto generated read-only Go binding around an Ethereum contract.
+// GasBurnerCaller is an auto generated read-only Go binding around an Zond contract.
 type GasBurnerCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// GasBurnerTransactor is an auto generated write-only Go binding around an Ethereum contract.
+// GasBurnerTransactor is an auto generated write-only Go binding around an Zond contract.
 type GasBurnerTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// GasBurnerFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+// GasBurnerFilterer is an auto generated log filtering Go binding around an Zond contract events.
 type GasBurnerFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// GasBurnerSession is an auto generated Go binding around an Ethereum contract,
+// GasBurnerSession is an auto generated Go binding around an Zond contract,
 // with pre-set call and transact options.
 type GasBurnerSession struct {
 	Contract     *GasBurner        // Generic contract binding to set the session for
@@ -87,31 +87,31 @@ type GasBurnerSession struct {
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// GasBurnerCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// GasBurnerCallerSession is an auto generated read-only Go binding around an Zond contract,
 // with pre-set call options.
 type GasBurnerCallerSession struct {
 	Contract *GasBurnerCaller // Generic contract caller binding to set the session for
 	CallOpts bind.CallOpts    // Call options to use throughout this session
 }
 
-// GasBurnerTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// GasBurnerTransactorSession is an auto generated write-only Go binding around an Zond contract,
 // with pre-set transact options.
 type GasBurnerTransactorSession struct {
 	Contract     *GasBurnerTransactor // Generic contract transactor binding to set the session for
 	TransactOpts bind.TransactOpts    // Transaction auth options to use throughout this session
 }
 
-// GasBurnerRaw is an auto generated low-level Go binding around an Ethereum contract.
+// GasBurnerRaw is an auto generated low-level Go binding around an Zond contract.
 type GasBurnerRaw struct {
 	Contract *GasBurner // Generic contract binding to access the raw methods on
 }
 
-// GasBurnerCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+// GasBurnerCallerRaw is an auto generated low-level read-only Go binding around an Zond contract.
 type GasBurnerCallerRaw struct {
 	Contract *GasBurnerCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// GasBurnerTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+// GasBurnerTransactorRaw is an auto generated low-level write-only Go binding around an Zond contract.
 type GasBurnerTransactorRaw struct {
 	Contract *GasBurnerTransactor // Generic write-only contract binding to access the raw methods on
 }

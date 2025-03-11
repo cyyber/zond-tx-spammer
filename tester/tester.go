@@ -7,11 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type Tester struct {
@@ -31,9 +31,9 @@ type Tester struct {
 }
 
 type TesterConfig struct {
-	RpcHosts       []string     // rpc host urls to use for blob tests
-	WalletPrivkey  string       // pre-funded wallet privkey to use for blob tests
-	WalletCount    uint64       // number of child wallets to generate & use (based on walletPrivkey)
+	RpcHosts       []string     // rpc host urls to use
+	WalletSeed     string       // pre-funded wallet seed
+	WalletCount    uint64       // number of child wallets to generate & use (based on walletSeed)
 	WalletPrefund  *uint256.Int // amount of funds to send to each child wallet
 	WalletMinfund  *uint256.Int // min amount of funds child wallets should hold - refill with walletPrefund if lower
 	RefillInterval uint64
@@ -51,7 +51,7 @@ func (tester *Tester) SetScenario(name string) {
 	tester.logger = logrus.WithField("tester", name)
 }
 
-func (tester *Tester) Start(seed string) error {
+func (tester *Tester) Start(childWalletSeed string) error {
 	var err error
 	if tester.running {
 		return fmt.Errorf("already started")
@@ -60,7 +60,7 @@ func (tester *Tester) Start(seed string) error {
 
 	tester.logger.WithFields(logrus.Fields{
 		"version": utils.GetBuildVersion(),
-	}).Infof("starting blob testing tool")
+	}).Infof("starting testing tool")
 
 	// prepare clients
 	err = tester.PrepareClients()
@@ -90,7 +90,7 @@ func (tester *Tester) Start(seed string) error {
 	})
 
 	// prepare wallets
-	err = tester.PrepareWallets(seed)
+	err = tester.PrepareWallets(childWalletSeed)
 	if err != nil {
 		return err
 	}

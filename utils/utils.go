@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/ethereum/go-ethereum/params"
 	"github.com/holiman/uint256"
+	"github.com/theQRL/go-zond/params"
 )
 
 func EtherToWei(val *uint256.Int) *uint256.Int {

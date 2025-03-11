@@ -10,22 +10,22 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/ethpandaops/spamoor/scenarios"
-	"github.com/ethpandaops/spamoor/scenariotypes"
-	"github.com/ethpandaops/spamoor/tester"
-	"github.com/ethpandaops/spamoor/utils"
+	"github.com/theQRL/zond-tx-spammer/scenarios"
+	"github.com/theQRL/zond-tx-spammer/scenariotypes"
+	"github.com/theQRL/zond-tx-spammer/tester"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type CliArgs struct {
-	verbose        bool
-	trace          bool
-	rpchosts       []string
-	rpchostsFile   string
-	privkey        string
-	seed           string
-	refillAmount   uint64
-	refillBalance  uint64
-	refillInterval uint64
+	verbose         bool
+	trace           bool
+	rpchosts        []string
+	rpchostsFile    string
+	walletSeed      string
+	childWalletSeed string
+	refillAmount    uint64
+	refillBalance   uint64
+	refillInterval  uint64
 }
 
 func main() {
@@ -36,8 +36,8 @@ func main() {
 	flags.BoolVar(&cliArgs.trace, "trace", false, "Run the script with tracing output")
 	flags.StringArrayVarP(&cliArgs.rpchosts, "rpchost", "h", []string{}, "The RPC host to send transactions to.")
 	flags.StringVar(&cliArgs.rpchostsFile, "rpchost-file", "", "File with a list of RPC hosts to send transactions to.")
-	flags.StringVarP(&cliArgs.privkey, "privkey", "p", "", "The private key of the wallet to send funds from.")
-	flags.StringVarP(&cliArgs.seed, "seed", "s", "", "The child wallet seed.")
+	flags.StringVar(&cliArgs.walletSeed, "wallet-seed", "", "The seed of the wallet to send funds from.")
+	flags.StringVar(&cliArgs.childWalletSeed, "child-wallet-seed", "", "The child wallet seed.")
 	flags.Uint64Var(&cliArgs.refillAmount, "refill-amount", 5, "Amount of ETH to fund/refill each child wallet with.")
 	flags.Uint64Var(&cliArgs.refillBalance, "refill-balance", 2, "Min amount of ETH each child wallet should hold before refilling.")
 	flags.Uint64Var(&cliArgs.refillInterval, "refill-interval", 300, "Interval for child wallet rbalance check and refilling if needed (in sec).")
@@ -105,7 +105,7 @@ func main() {
 
 	testerConfig := &tester.TesterConfig{
 		RpcHosts:       rpcHosts,
-		WalletPrivkey:  cliArgs.privkey,
+		WalletSeed:     cliArgs.walletSeed,
 		WalletCount:    100,
 		WalletPrefund:  utils.EtherToWei(uint256.NewInt(cliArgs.refillAmount)),
 		WalletMinfund:  utils.EtherToWei(uint256.NewInt(cliArgs.refillBalance)),
@@ -116,7 +116,7 @@ func main() {
 		panic(err)
 	}
 	tester := tester.NewTester(testerConfig)
-	err = tester.Start(cliArgs.seed)
+	err = tester.Start(cliArgs.childWalletSeed)
 	if err != nil {
 		panic(err)
 	}

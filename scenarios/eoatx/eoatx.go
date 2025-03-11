@@ -5,21 +5,20 @@ import (
 	"crypto/rand"
 	"fmt"
 	"math/big"
-	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
 
-	"github.com/ethpandaops/spamoor/scenariotypes"
-	"github.com/ethpandaops/spamoor/tester"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
+	"github.com/theQRL/zond-tx-spammer/scenariotypes"
+	"github.com/theQRL/zond-tx-spammer/tester"
+	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
@@ -221,11 +220,10 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 	txCallData := []byte{}
 
 	if s.options.Data != "" {
-		dataBytes, err := txbuilder.ParseBlobRefsBytes(strings.Split(s.options.Data, ","), nil)
-		if err != nil {
-			return nil, nil, wallet, err
+		dataBytes := common.FromHex(s.options.Data)
+		if dataBytes == nil {
+			return nil, nil, nil, fmt.Errorf("invalid data")
 		}
-
 		txCallData = dataBytes
 	}
 

@@ -9,18 +9,18 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
+	"github.com/theQRL/go-zond/accounts/abi/bind"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
 
-	"github.com/ethpandaops/spamoor/scenarios/erctx/contract"
-	"github.com/ethpandaops/spamoor/scenariotypes"
-	"github.com/ethpandaops/spamoor/tester"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
+	"github.com/theQRL/zond-tx-spammer/scenarios/erctx/contract"
+	"github.com/theQRL/zond-tx-spammer/scenariotypes"
+	"github.com/theQRL/zond-tx-spammer/tester"
+	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
@@ -212,7 +212,7 @@ func (s *Scenario) sendDeploymentTx() (*types.Receipt, *txbuilder.Client, error)
 		Gas:       2000000,
 		Value:     uint256.NewInt(0),
 	}, func(transactOpts *bind.TransactOpts) (*types.Transaction, error) {
-		_, deployTx, _, err := contract.DeployContract(transactOpts, client.GetEthClient())
+		_, deployTx, _, err := contract.DeployContract(transactOpts, client.GetZondClient())
 		return deployTx, err
 	})
 
@@ -294,7 +294,7 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 		toAddr = common.Address(addrBytes)
 	}
 
-	testToken, err := contract.NewContract(s.contractAddr, client.GetEthClient())
+	testToken, err := contract.NewContract(s.contractAddr, client.GetZondClient())
 	if err != nil {
 		return nil, nil, wallet, err
 	}

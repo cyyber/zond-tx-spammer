@@ -1,7 +1,7 @@
 package txbuilder
 
 import (
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/theQRL/go-zond/core/types"
 )
 
 func DynFeeTx(txData *TxMetadata) (*types.DynamicFeeTx, error) {

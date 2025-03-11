@@ -69,11 +69,11 @@ jobs:
         RELEASE: ${{ inputs.release }}
 
     # upload artifacts
-    - name: "Upload artifact: spamoor_linux_amd64"
+    - name: "Upload artifact: tx-spammer_linux_amd64"
       uses: actions/upload-artifact@v4
       with:
         path: ./bin/*
-        name: spamoor_linux_amd64
+        name: tx-spammer_linux_amd64
   
   build_linux_arm64_binary:
     name: Build linux/arm64 binary
@@ -108,11 +108,11 @@ jobs:
         RELEASE: ${{ inputs.release }}
 
     # upload artifacts
-    - name: "Upload artifact: spamoor_linux_arm64"
+    - name: "Upload artifact: tx-spammer_linux_arm64"
       uses: actions/upload-artifact@v4
       with:
         path: ./bin/*
-        name: spamoor_linux_arm64
+        name: tx-spammer_linux_arm64
 
   build_windows_binary:
     name: Build windows/amd64 binary
@@ -141,11 +141,11 @@ jobs:
         RELEASE: ${{ inputs.release }}
 
     # upload artifacts
-    - name: "Upload artifact: spamoor_windows_amd64"
+    - name: "Upload artifact: tx-spammer_windows_amd64"
       uses: actions/upload-artifact@v4
       with:
         path: ./bin/*
-        name: spamoor_windows_amd64
+        name: tx-spammer_windows_amd64
 
   build_darwin_amd64_binary:
     name: Build macos/amd64 binary
@@ -174,11 +174,11 @@ jobs:
         RELEASE: ${{ inputs.release }}
 
     # upload artifacts
-    - name: "Upload artifact: spamoor_darwin_amd64"
+    - name: "Upload artifact: tx-spammer_darwin_amd64"
       uses: actions/upload-artifact@v4
       with:
         path: ./bin/*
-        name: spamoor_darwin_amd64
+        name: tx-spammer_darwin_amd64
 
   build_darwin_arm64_binary:
     name: Build macos/arm64 binary
@@ -207,11 +207,11 @@ jobs:
         RELEASE: ${{ inputs.release }}
 
     # upload artifacts
-    - name: "Upload artifact: spamoor_darwin_arm64"
+    - name: "Upload artifact: tx-spammer_darwin_arm64"
       uses: actions/upload-artifact@v4
       with:
         path: ./bin/*
-        name: spamoor_darwin_arm64
+        name: tx-spammer_darwin_arm64
 
   build_amd64_docker_image:
     name: Build amd64 docker image
@@ -240,7 +240,7 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v4
       with:
-        name: spamoor_linux_amd64
+        name: tx-spammer_linux_amd64
         path: ./bin
 
     # prepare environment
@@ -289,7 +289,7 @@ jobs:
     - name: Download build artifacts
       uses: actions/download-artifact@v4
       with:
-        name: spamoor_linux_arm64
+        name: tx-spammer_linux_arm64
         path: ./bin
 
     # prepare environment

@@ -10,15 +10,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethpandaops/spamoor/txbuilder"
-	"github.com/ethpandaops/spamoor/utils"
 	"github.com/holiman/uint256"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
+	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/zond-tx-spammer/utils"
 )
 
-func (tester *Tester) PrepareWallets(seed string) error {
-	rootWallet, err := txbuilder.NewWallet(tester.config.WalletPrivkey)
+func (tester *Tester) PrepareWallets(childWalletSeed string) error {
+	rootWallet, err := txbuilder.NewWallet(tester.config.WalletSeed)
 	if err != nil {
 		return err
 	}
@@ -64,7 +64,7 @@ func (tester *Tester) PrepareWallets(seed string) error {
 						return
 					}
 
-					childWallet, fundingTx, err := tester.prepareChildWallet(childIdx, client, seed)
+					childWallet, fundingTx, err := tester.prepareChildWallet(childIdx, client, childWalletSeed)
 					if err != nil {
 						tester.logger.Errorf("could not prepare child wallet %v: %v", childIdx, err)
 						walletErr = err
@@ -128,16 +128,15 @@ func (tester *Tester) PrepareWallets(seed string) error {
 	return nil
 }
 
-func (tester *Tester) prepareChildWallet(childIdx uint64, client *txbuilder.Client, seed string) (*txbuilder.Wallet, *types.Transaction, error) {
+func (tester *Tester) prepareChildWallet(childIdx uint64, client *txbuilder.Client, childWalletSeed string) (*txbuilder.Wallet, *types.Transaction, error) {
 	idxBytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(idxBytes, childIdx)
-	if seed != "" {
-		seedBytes := []byte(seed)
-		idxBytes = append(idxBytes, seedBytes...)
+	if childWalletSeed != "" {
+		childWalletSeedBytes := []byte(childWalletSeed)
+		idxBytes = append(idxBytes, childWalletSeedBytes...)
 	}
-	childKey := sha256.Sum256(append(common.FromHex(tester.config.WalletPrivkey), idxBytes...))
-
-	childWallet, err := txbuilder.NewWallet(fmt.Sprintf("%x", childKey))
+	childKey := sha256.Sum256(append(common.FromHex(tester.config.WalletSeed), idxBytes...))
+	childWallet, err := txbuilder.NewWallet(fmt.Sprintf("%x", [48]byte(PadTo(childKey[:], 48))))
 	if err != nil {
 		return nil, nil, err
 	}
@@ -371,4 +370,13 @@ func (tester *Tester) sendTxRange(txList []*types.Transaction, client *txbuilder
 	wg.Done()
 	wg.Wait()
 	return nil
+}
+
+// PadTo pads a byte slice to the given size. If the byte slice is larger than the given size, the
+// original slice is returned.
+func PadTo(b []byte, size int) []byte {
+	if len(b) >= size {
+		return b
+	}
+	return append(b, make([]byte, size-len(b))...)
 }

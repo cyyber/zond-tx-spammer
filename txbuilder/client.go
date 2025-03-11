@@ -8,17 +8,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/sirupsen/logrus"
+	"github.com/theQRL/go-zond/common"
+	"github.com/theQRL/go-zond/core/types"
+	"github.com/theQRL/go-zond/rpc"
+	"github.com/theQRL/go-zond/zondclient"
 )
 
 type Client struct {
 	Timeout time.Duration
 	rpchost string
-	client  *ethclient.Client
+	client  *zondclient.Client
 	logger  *logrus.Entry
 
 	gasSuggestionMutex sync.Mutex
@@ -57,7 +57,7 @@ func NewClient(rpchost string) (*Client, error) {
 	}
 
 	return &Client{
-		client:  ethclient.NewClient(rpcClient),
+		client:  zondclient.NewClient(rpcClient),
 		rpchost: rpchost,
 		logger:  logrus.WithField("client", rpchost),
 	}, nil
@@ -65,11 +65,11 @@ func NewClient(rpchost string) (*Client, error) {
 
 func (client *Client) GetName() string {
 	url, _ := url.Parse(client.rpchost)
-	name := strings.TrimSuffix(url.Host, ".ethpandaops.io")
+	name := strings.TrimSuffix(url.Host, ".theqrl.org")
 	return name
 }
 
-func (client *Client) GetEthClient() *ethclient.Client {
+func (client *Client) GetZondClient() *zondclient.Client {
 	return client.client
 }
 
