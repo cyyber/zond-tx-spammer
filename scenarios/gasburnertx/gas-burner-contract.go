@@ -201,126 +201,126 @@ func (_GasBurner *GasBurnerTransactorRaw) Transact(opts *bind.TransactOpts, meth
 
 // Burn1000k is a paid mutator transaction binding the contract method 0xe3793770.
 //
-// Solidity: function burn1000k() returns()
+// Hyperion: function burn1000k() returns()
 func (_GasBurner *GasBurnerTransactor) Burn1000k(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _GasBurner.contract.Transact(opts, "burn1000k")
 }
 
 // Burn1000k is a paid mutator transaction binding the contract method 0xe3793770.
 //
-// Solidity: function burn1000k() returns()
+// Hyperion: function burn1000k() returns()
 func (_GasBurner *GasBurnerSession) Burn1000k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn1000k(&_GasBurner.TransactOpts)
 }
 
 // Burn1000k is a paid mutator transaction binding the contract method 0xe3793770.
 //
-// Solidity: function burn1000k() returns()
+// Hyperion: function burn1000k() returns()
 func (_GasBurner *GasBurnerTransactorSession) Burn1000k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn1000k(&_GasBurner.TransactOpts)
 }
 
 // Burn100k is a paid mutator transaction binding the contract method 0x419f772e.
 //
-// Solidity: function burn100k() returns()
+// Hyperion: function burn100k() returns()
 func (_GasBurner *GasBurnerTransactor) Burn100k(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _GasBurner.contract.Transact(opts, "burn100k")
 }
 
 // Burn100k is a paid mutator transaction binding the contract method 0x419f772e.
 //
-// Solidity: function burn100k() returns()
+// Hyperion: function burn100k() returns()
 func (_GasBurner *GasBurnerSession) Burn100k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn100k(&_GasBurner.TransactOpts)
 }
 
 // Burn100k is a paid mutator transaction binding the contract method 0x419f772e.
 //
-// Solidity: function burn100k() returns()
+// Hyperion: function burn100k() returns()
 func (_GasBurner *GasBurnerTransactorSession) Burn100k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn100k(&_GasBurner.TransactOpts)
 }
 
 // Burn1500k is a paid mutator transaction binding the contract method 0xa2cea635.
 //
-// Solidity: function burn1500k() returns()
+// Hyperion: function burn1500k() returns()
 func (_GasBurner *GasBurnerTransactor) Burn1500k(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _GasBurner.contract.Transact(opts, "burn1500k")
 }
 
 // Burn1500k is a paid mutator transaction binding the contract method 0xa2cea635.
 //
-// Solidity: function burn1500k() returns()
+// Hyperion: function burn1500k() returns()
 func (_GasBurner *GasBurnerSession) Burn1500k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn1500k(&_GasBurner.TransactOpts)
 }
 
 // Burn1500k is a paid mutator transaction binding the contract method 0xa2cea635.
 //
-// Solidity: function burn1500k() returns()
+// Hyperion: function burn1500k() returns()
 func (_GasBurner *GasBurnerTransactorSession) Burn1500k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn1500k(&_GasBurner.TransactOpts)
 }
 
 // Burn2000k is a paid mutator transaction binding the contract method 0xd0da1e35.
 //
-// Solidity: function burn2000k() returns()
+// Hyperion: function burn2000k() returns()
 func (_GasBurner *GasBurnerTransactor) Burn2000k(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _GasBurner.contract.Transact(opts, "burn2000k")
 }
 
 // Burn2000k is a paid mutator transaction binding the contract method 0xd0da1e35.
 //
-// Solidity: function burn2000k() returns()
+// Hyperion: function burn2000k() returns()
 func (_GasBurner *GasBurnerSession) Burn2000k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn2000k(&_GasBurner.TransactOpts)
 }
 
 // Burn2000k is a paid mutator transaction binding the contract method 0xd0da1e35.
 //
-// Solidity: function burn2000k() returns()
+// Hyperion: function burn2000k() returns()
 func (_GasBurner *GasBurnerTransactorSession) Burn2000k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn2000k(&_GasBurner.TransactOpts)
 }
 
 // Burn500k is a paid mutator transaction binding the contract method 0x1ff94f73.
 //
-// Solidity: function burn500k() returns()
+// Hyperion: function burn500k() returns()
 func (_GasBurner *GasBurnerTransactor) Burn500k(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _GasBurner.contract.Transact(opts, "burn500k")
 }
 
 // Burn500k is a paid mutator transaction binding the contract method 0x1ff94f73.
 //
-// Solidity: function burn500k() returns()
+// Hyperion: function burn500k() returns()
 func (_GasBurner *GasBurnerSession) Burn500k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn500k(&_GasBurner.TransactOpts)
 }
 
 // Burn500k is a paid mutator transaction binding the contract method 0x1ff94f73.
 //
-// Solidity: function burn500k() returns()
+// Hyperion: function burn500k() returns()
 func (_GasBurner *GasBurnerTransactorSession) Burn500k() (*types.Transaction, error) {
 	return _GasBurner.Contract.Burn500k(&_GasBurner.TransactOpts)
 }
 
 // BurnGasUnits is a paid mutator transaction binding the contract method 0x41587359.
 //
-// Solidity: function burnGasUnits(uint256 amount) returns()
+// Hyperion: function burnGasUnits(uint256 amount) returns()
 func (_GasBurner *GasBurnerTransactor) BurnGasUnits(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error) {
 	return _GasBurner.contract.Transact(opts, "burnGasUnits", amount)
 }
 
 // BurnGasUnits is a paid mutator transaction binding the contract method 0x41587359.
 //
-// Solidity: function burnGasUnits(uint256 amount) returns()
+// Hyperion: function burnGasUnits(uint256 amount) returns()
 func (_GasBurner *GasBurnerSession) BurnGasUnits(amount *big.Int) (*types.Transaction, error) {
 	return _GasBurner.Contract.BurnGasUnits(&_GasBurner.TransactOpts, amount)
 }
 
 // BurnGasUnits is a paid mutator transaction binding the contract method 0x41587359.
 //
-// Solidity: function burnGasUnits(uint256 amount) returns()
+// Hyperion: function burnGasUnits(uint256 amount) returns()
 func (_GasBurner *GasBurnerTransactorSession) BurnGasUnits(amount *big.Int) (*types.Transaction, error) {
 	return _GasBurner.Contract.BurnGasUnits(&_GasBurner.TransactOpts, amount)
 }

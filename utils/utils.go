@@ -5,11 +5,11 @@ import (
 	"github.com/theQRL/go-zond/params"
 )
 
-func EtherToWei(val *uint256.Int) *uint256.Int {
-	return new(uint256.Int).Mul(val, uint256.NewInt(params.Ether))
+func ZondToPlanck(val *uint256.Int) *uint256.Int {
+	return new(uint256.Int).Mul(val, uint256.NewInt(params.Zond))
 }
 
-func WeiToEther(val *uint256.Int) *uint256.Int {
+func PlanckToZond(val *uint256.Int) *uint256.Int {
 	if val == nil {
 		return nil
 	}
