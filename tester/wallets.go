@@ -30,9 +30,9 @@ func (tester *Tester) PrepareWallets(childWalletSeed string) error {
 	}
 
 	tester.logger.Infof(
-		"initialized root wallet (addr: %v balance: %v ETH, nonce: %v)",
+		"initialized root wallet (addr: %v balance: %v Zond, nonce: %v)",
 		rootWallet.GetAddress().String(),
-		utils.WeiToEther(uint256.MustFromBig(rootWallet.GetBalance())).Uint64(),
+		utils.PlanckToZond(uint256.MustFromBig(rootWallet.GetBalance())).Uint64(),
 		rootWallet.GetNonce(),
 	)
 
@@ -114,10 +114,10 @@ func (tester *Tester) PrepareWallets(childWalletSeed string) error {
 
 		for childIdx, childWallet := range tester.childWallets {
 			tester.logger.Debugf(
-				"initialized child wallet %4d (addr: %v, balance: %v ETH, nonce: %v)",
+				"initialized child wallet %4d (addr: %v, balance: %v Zond, nonce: %v)",
 				childIdx,
 				childWallet.GetAddress().String(),
-				utils.WeiToEther(uint256.MustFromBig(childWallet.GetBalance())).Uint64(),
+				utils.PlanckToZond(uint256.MustFromBig(childWallet.GetBalance())).Uint64(),
 				childWallet.GetNonce(),
 			)
 		}
