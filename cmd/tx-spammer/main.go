@@ -10,10 +10,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/theQRL/zond-tx-spammer/scenarios"
-	"github.com/theQRL/zond-tx-spammer/scenariotypes"
-	"github.com/theQRL/zond-tx-spammer/tester"
-	"github.com/theQRL/zond-tx-spammer/utils"
+	"github.com/theQRL/qrl-tx-spammer/scenarios"
+	"github.com/theQRL/qrl-tx-spammer/scenariotypes"
+	"github.com/theQRL/qrl-tx-spammer/tester"
+	"github.com/theQRL/qrl-tx-spammer/utils"
 )
 
 type CliArgs struct {
@@ -107,8 +107,8 @@ func main() {
 		RpcHosts:       rpcHosts,
 		WalletSeed:     cliArgs.walletSeed,
 		WalletCount:    100,
-		WalletPrefund:  utils.ZondToPlanck(uint256.NewInt(cliArgs.refillAmount)),
-		WalletMinfund:  utils.ZondToPlanck(uint256.NewInt(cliArgs.refillBalance)),
+		WalletPrefund:  utils.QuantaToPlanck(uint256.NewInt(cliArgs.refillAmount)),
+		WalletMinfund:  utils.QuantaToPlanck(uint256.NewInt(cliArgs.refillBalance)),
 		RefillInterval: cliArgs.refillInterval,
 	}
 	err := scenario.Init(testerConfig)

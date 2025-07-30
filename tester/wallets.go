@@ -13,8 +13,8 @@ import (
 	"github.com/holiman/uint256"
 	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/go-zond/core/types"
-	"github.com/theQRL/zond-tx-spammer/txbuilder"
-	"github.com/theQRL/zond-tx-spammer/utils"
+	"github.com/theQRL/qrl-tx-spammer/txbuilder"
+	"github.com/theQRL/qrl-tx-spammer/utils"
 )
 
 func (tester *Tester) PrepareWallets(childWalletSeed string) error {
@@ -30,9 +30,9 @@ func (tester *Tester) PrepareWallets(childWalletSeed string) error {
 	}
 
 	tester.logger.Infof(
-		"initialized root wallet (addr: %v balance: %v Zond, nonce: %v)",
+		"initialized root wallet (addr: %v balance: %v Quanta, nonce: %v)",
 		rootWallet.GetAddress().String(),
-		utils.PlanckToZond(uint256.MustFromBig(rootWallet.GetBalance())).Uint64(),
+		utils.PlanckToQuanta(uint256.MustFromBig(rootWallet.GetBalance())).Uint64(),
 		rootWallet.GetNonce(),
 	)
 
@@ -114,10 +114,10 @@ func (tester *Tester) PrepareWallets(childWalletSeed string) error {
 
 		for childIdx, childWallet := range tester.childWallets {
 			tester.logger.Debugf(
-				"initialized child wallet %4d (addr: %v, balance: %v Zond, nonce: %v)",
+				"initialized child wallet %4d (addr: %v, balance: %v Quanta, nonce: %v)",
 				childIdx,
 				childWallet.GetAddress().String(),
-				utils.PlanckToZond(uint256.MustFromBig(childWallet.GetBalance())).Uint64(),
+				utils.PlanckToQuanta(uint256.MustFromBig(childWallet.GetBalance())).Uint64(),
 				childWallet.GetNonce(),
 			)
 		}

@@ -8,7 +8,7 @@ import (
 	"math/big"
 	"strings"
 
-	zond "github.com/theQRL/go-zond"
+	qrl "github.com/theQRL/go-zond"
 	"github.com/theQRL/go-zond/accounts/abi"
 	"github.com/theQRL/go-zond/accounts/abi/bind"
 	"github.com/theQRL/go-zond/common"
@@ -21,7 +21,7 @@ var (
 	_ = errors.New
 	_ = big.NewInt
 	_ = strings.NewReader
-	_ = zond.NotFound
+	_ = qrl.NotFound
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
@@ -43,7 +43,7 @@ var ContractABI = ContractMetaData.ABI
 // Deprecated: Use ContractMetaData.Bin instead.
 var ContractBin = ContractMetaData.Bin
 
-// DeployContract deploys a new Zond contract, binding an instance of Contract to it.
+// DeployContract deploys a new QRL contract, binding an instance of Contract to it.
 func DeployContract(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *Contract, error) {
 	parsed, err := ContractMetaData.GetAbi()
 	if err != nil {
@@ -60,29 +60,29 @@ func DeployContract(auth *bind.TransactOpts, backend bind.ContractBackend) (comm
 	return address, tx, &Contract{ContractCaller: ContractCaller{contract: contract}, ContractTransactor: ContractTransactor{contract: contract}, ContractFilterer: ContractFilterer{contract: contract}}, nil
 }
 
-// Contract is an auto generated Go binding around a Zond contract.
+// Contract is an auto generated Go binding around a QRL contract.
 type Contract struct {
 	ContractCaller     // Read-only binding to the contract
 	ContractTransactor // Write-only binding to the contract
 	ContractFilterer   // Log filterer for contract events
 }
 
-// ContractCaller is an auto generated read-only Go binding around a Zond contract.
+// ContractCaller is an auto generated read-only Go binding around a QRL contract.
 type ContractCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ContractTransactor is an auto generated write-only Go binding around a Zond contract.
+// ContractTransactor is an auto generated write-only Go binding around a QRL contract.
 type ContractTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ContractFilterer is an auto generated log filtering Go binding around a Zond contract events.
+// ContractFilterer is an auto generated log filtering Go binding around a QRL contract events.
 type ContractFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// ContractSession is an auto generated Go binding around a Zond contract,
+// ContractSession is an auto generated Go binding around a QRL contract,
 // with pre-set call and transact options.
 type ContractSession struct {
 	Contract     *Contract         // Generic contract binding to set the session for
@@ -90,31 +90,31 @@ type ContractSession struct {
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// ContractCallerSession is an auto generated read-only Go binding around a Zond contract,
+// ContractCallerSession is an auto generated read-only Go binding around a QRL contract,
 // with pre-set call options.
 type ContractCallerSession struct {
 	Contract *ContractCaller // Generic contract caller binding to set the session for
 	CallOpts bind.CallOpts   // Call options to use throughout this session
 }
 
-// ContractTransactorSession is an auto generated write-only Go binding around a Zond contract,
+// ContractTransactorSession is an auto generated write-only Go binding around a QRL contract,
 // with pre-set transact options.
 type ContractTransactorSession struct {
 	Contract     *ContractTransactor // Generic contract transactor binding to set the session for
 	TransactOpts bind.TransactOpts   // Transaction auth options to use throughout this session
 }
 
-// ContractRaw is an auto generated low-level Go binding around a Zond contract.
+// ContractRaw is an auto generated low-level Go binding around a QRL contract.
 type ContractRaw struct {
 	Contract *Contract // Generic contract binding to access the raw methods on
 }
 
-// ContractCallerRaw is an auto generated low-level read-only Go binding around a Zond contract.
+// ContractCallerRaw is an auto generated low-level read-only Go binding around a QRL contract.
 type ContractCallerRaw struct {
 	Contract *ContractCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// ContractTransactorRaw is an auto generated low-level write-only Go binding around a Zond contract.
+// ContractTransactorRaw is an auto generated low-level write-only Go binding around a QRL contract.
 type ContractTransactorRaw struct {
 	Contract *ContractTransactor // Generic write-only contract binding to access the raw methods on
 }
@@ -542,10 +542,10 @@ type ContractApprovalIterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log    // Log channel receiving the found contract events
-	sub  zond.Subscription // Subscription for errors, completion and termination
-	done bool              // Whether the subscription completed delivering logs
-	fail error             // Occurred error to stop iteration
+	logs chan types.Log   // Log channel receiving the found contract events
+	sub  qrl.Subscription // Subscription for errors, completion and termination
+	done bool             // Whether the subscription completed delivering logs
+	fail error            // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -696,10 +696,10 @@ type ContractTransferIterator struct {
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
 
-	logs chan types.Log    // Log channel receiving the found contract events
-	sub  zond.Subscription // Subscription for errors, completion and termination
-	done bool              // Whether the subscription completed delivering logs
-	fail error             // Occurred error to stop iteration
+	logs chan types.Log   // Log channel receiving the found contract events
+	sub  qrl.Subscription // Subscription for errors, completion and termination
+	done bool             // Whether the subscription completed delivering logs
+	fail error            // Occurred error to stop iteration
 }
 
 // Next advances the iterator to the subsequent event, returning whether there

@@ -1,17 +1,17 @@
 package scenarios
 
 import (
-	"github.com/theQRL/zond-tx-spammer/scenarios/deploytx"
-	"github.com/theQRL/zond-tx-spammer/scenarios/eoatx"
-	"github.com/theQRL/zond-tx-spammer/scenarios/gasburnertx"
-	"github.com/theQRL/zond-tx-spammer/scenarios/wallets"
-	"github.com/theQRL/zond-tx-spammer/scenarios/zrctx"
-	"github.com/theQRL/zond-tx-spammer/scenariotypes"
+	"github.com/theQRL/qrl-tx-spammer/scenarios/deploytx"
+	"github.com/theQRL/qrl-tx-spammer/scenarios/eoatx"
+	"github.com/theQRL/qrl-tx-spammer/scenarios/gasburnertx"
+	"github.com/theQRL/qrl-tx-spammer/scenarios/sqrctx"
+	"github.com/theQRL/qrl-tx-spammer/scenarios/wallets"
+	"github.com/theQRL/qrl-tx-spammer/scenariotypes"
 )
 
 var Scenarios map[string]func() scenariotypes.Scenario = map[string]func() scenariotypes.Scenario{
 	"eoatx":       eoatx.NewScenario,
-	"zrctx":       zrctx.NewScenario,
+	"sqrctx":      sqrctx.NewScenario,
 	"deploytx":    deploytx.NewScenario,
 	"gasburnertx": gasburnertx.NewScenario,
 

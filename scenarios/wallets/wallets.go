@@ -5,9 +5,9 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/theQRL/zond-tx-spammer/scenariotypes"
-	"github.com/theQRL/zond-tx-spammer/tester"
-	"github.com/theQRL/zond-tx-spammer/utils"
+	"github.com/theQRL/qrl-tx-spammer/scenariotypes"
+	"github.com/theQRL/qrl-tx-spammer/tester"
+	"github.com/theQRL/qrl-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
@@ -43,14 +43,14 @@ func (s *Scenario) Init(testerCfg *tester.TesterConfig) error {
 
 func (s *Scenario) Run(t *tester.Tester) error {
 	wallet := t.GetRootWallet()
-	s.logger.Infof("Root Wallet  %v  nonce: %6d  balance: %v Zond", wallet.GetAddress().String(), wallet.GetNonce(), utils.PlanckToZond(uint256.MustFromBig(wallet.GetBalance())))
+	s.logger.Infof("Root Wallet  %v  nonce: %6d  balance: %v Quanta", wallet.GetAddress().String(), wallet.GetNonce(), utils.PlanckToQuanta(uint256.MustFromBig(wallet.GetBalance())))
 	client := t.GetClient(tester.SelectByIndex, 0)
 
 	for i := 0; i < int(s.wallets); i++ {
 		wallet := t.GetWallet(tester.SelectByIndex, i)
 		pendingNonce, _ := client.GetPendingNonceAt(wallet.GetAddress())
 
-		s.logger.Infof("Child Wallet %4d  %v  nonce: %6d (%6d)  balance: %v Zond", i+1, wallet.GetAddress().String(), wallet.GetNonce(), pendingNonce, utils.PlanckToZond(uint256.MustFromBig(wallet.GetBalance())))
+		s.logger.Infof("Child Wallet %4d  %v  nonce: %6d (%6d)  balance: %v Quanta", i+1, wallet.GetAddress().String(), wallet.GetNonce(), pendingNonce, utils.PlanckToQuanta(uint256.MustFromBig(wallet.GetBalance())))
 	}
 
 	return nil

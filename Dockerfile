@@ -11,7 +11,7 @@ RUN <<EOR
   VERSION=$(git rev-parse --short HEAD)
   BUILDTIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
   RELEASE=$release
-  CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o /app/tx-spammer -ldflags="-s -w -X 'github.com/theQRL/zond-tx-spammer/utils.BuildVersion=${VERSION}' -X 'github.com/theQRL/zond-tx-spammer/utils.BuildRelease=${RELEASE}' -X 'github.com/theQRL/zond-tx-spammer/utils.Buildtime=${BUILDTIME}'" ./cmd/tx-spammer
+  CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o /app/tx-spammer -ldflags="-s -w -X 'github.com/theQRL/qrl-tx-spammer/utils.BuildVersion=${VERSION}' -X 'github.com/theQRL/qrl-tx-spammer/utils.BuildRelease=${RELEASE}' -X 'github.com/theQRL/qrl-tx-spammer/utils.Buildtime=${BUILDTIME}'" ./cmd/tx-spammer
 EOR
 
 # final stage

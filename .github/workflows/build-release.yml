@@ -19,7 +19,7 @@ jobs:
       ref: ${{ github.sha }}
       release: "v${{ inputs.version }}"
       docker: true
-      docker_repository: "theqrl/zond-tx-spammer"
+      docker_repository: "theqrl/qrl-tx-spammer"
       docker_tag_prefix: "v${{ inputs.version }}"
       additional_tags: "['v${{ inputs.version }}','latest']"
     secrets:
@@ -68,14 +68,14 @@ jobs:
           ${{ steps.changelog.outputs.changelog }}
 
           ### Release Artifacts
-          Please read through the [wiki](https://github.com/theQRL/zond-tx-spammer/wiki) for setup & configuration instructions.
+          Please read through the [wiki](https://github.com/theQRL/qrl-tx-spammer/wiki) for setup & configuration instructions.
           | Release File  | Description |
           | ------------- | ------------- |
-          | [tx-spammer_${{ inputs.version }}_windows_amd64.zip](https://github.com/theQRL/zond-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_windows_amd64.zip) | tx-spammer executables for windows/amd64 |
-          | [tx-spammer_${{ inputs.version }}_linux_amd64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_linux_amd64.tar.gz) | tx-spammer executables for linux/amd64 |
-          | [tx-spammer_${{ inputs.version }}_linux_arm64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_linux_arm64.tar.gz) | tx-spammer executables for linux/arm64 |
-          | [tx-spammer_${{ inputs.version }}_darwin_amd64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_darwin_amd64.tar.gz) | tx-spammer executable for macos/amd64 |
-          | [tx-spammer_${{ inputs.version }}_darwin_arm64.tar.gz](https://github.com/theQRL/zond-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_darwin_arm64.tar.gz) | tx-spammer executable for macos/arm64 |
+          | [tx-spammer_${{ inputs.version }}_windows_amd64.zip](https://github.com/theQRL/qrl-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_windows_amd64.zip) | tx-spammer executables for windows/amd64 |
+          | [tx-spammer_${{ inputs.version }}_linux_amd64.tar.gz](https://github.com/theQRL/qrl-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_linux_amd64.tar.gz) | tx-spammer executables for linux/amd64 |
+          | [tx-spammer_${{ inputs.version }}_linux_arm64.tar.gz](https://github.com/theQRL/qrl-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_linux_arm64.tar.gz) | tx-spammer executables for linux/arm64 |
+          | [tx-spammer_${{ inputs.version }}_darwin_amd64.tar.gz](https://github.com/theQRL/qrl-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_darwin_amd64.tar.gz) | tx-spammer executable for macos/amd64 |
+          | [tx-spammer_${{ inputs.version }}_darwin_arm64.tar.gz](https://github.com/theQRL/qrl-tx-spammer/releases/download/v${{ inputs.version }}/tx-spammer_${{ inputs.version }}_darwin_arm64.tar.gz) | tx-spammer executable for macos/arm64 |
       env:
         GITHUB_TOKEN: ${{ github.token }}
 

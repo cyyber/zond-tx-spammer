@@ -8,17 +8,16 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/theQRL/zond-tx-spammer/utils"
-
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/theQRL/go-zond/accounts/abi/bind"
 	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/go-zond/core/types"
-	"github.com/theQRL/zond-tx-spammer/scenariotypes"
-	"github.com/theQRL/zond-tx-spammer/tester"
-	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/qrl-tx-spammer/scenariotypes"
+	"github.com/theQRL/qrl-tx-spammer/tester"
+	"github.com/theQRL/qrl-tx-spammer/txbuilder"
+	"github.com/theQRL/qrl-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
@@ -208,7 +207,7 @@ func (s *Scenario) sendDeploymentTx() (*types.Receipt, *txbuilder.Client, error)
 		GasTipCap: uint256.MustFromBig(tipCap),
 		Gas:       2000000,
 	}, func(transactOpts *bind.TransactOpts) (*types.Transaction, error) {
-		_, deployTx, _, err := DeployGasBurner(transactOpts, client.GetZondClient())
+		_, deployTx, _, err := DeployGasBurner(transactOpts, client.GetQRLClient())
 		return deployTx, err
 	})
 	if err != nil {
@@ -355,5 +354,5 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 
 func (s *Scenario) GetGasBurner() (*GasBurner, error) {
 	client := s.tester.GetClient(tester.SelectByIndex, 0)
-	return NewGasBurner(s.gasBurnerContractAddr, client.GetZondClient())
+	return NewGasBurner(s.gasBurnerContractAddr, client.GetQRLClient())
 }

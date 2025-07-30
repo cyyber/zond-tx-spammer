@@ -2,7 +2,7 @@ package scenariotypes
 
 import (
 	"github.com/spf13/pflag"
-	"github.com/theQRL/zond-tx-spammer/tester"
+	"github.com/theQRL/qrl-tx-spammer/tester"
 )
 
 type Scenario interface {
