@@ -34,4 +34,4 @@ require (
 	golang.org/x/sys v0.28.0 // indirect
 )
 
-replace github.com/theQRL/go-zond => github.com/rgeraldes24/go-zond v0.0.0-20250719093039-de94263012f9
+replace github.com/theQRL/go-zond => github.com/rgeraldes24/go-zond v0.0.0-20250901090932-5b28406187a1

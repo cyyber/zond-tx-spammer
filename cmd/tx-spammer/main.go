@@ -38,8 +38,8 @@ func main() {
 	flags.StringVar(&cliArgs.rpchostsFile, "rpchost-file", "", "File with a list of RPC hosts to send transactions to.")
 	flags.StringVar(&cliArgs.walletSeed, "wallet-seed", "", "The seed of the wallet to send funds from.")
 	flags.StringVar(&cliArgs.childWalletSeed, "child-wallet-seed", "", "The child wallet seed.")
-	flags.Uint64Var(&cliArgs.refillAmount, "refill-amount", 5, "Amount of Zond to fund/refill each child wallet with.")
-	flags.Uint64Var(&cliArgs.refillBalance, "refill-balance", 2, "Min amount of Zond each child wallet should hold before refilling.")
+	flags.Uint64Var(&cliArgs.refillAmount, "refill-amount", 5, "Amount of Quanta to fund/refill each child wallet with.")
+	flags.Uint64Var(&cliArgs.refillBalance, "refill-balance", 2, "Min amount of Quanta each child wallet should hold before refilling.")
 	flags.Uint64Var(&cliArgs.refillInterval, "refill-interval", 300, "Interval for child wallet rbalance check and refilling if needed (in sec).")
 
 	flags.Parse(os.Args)

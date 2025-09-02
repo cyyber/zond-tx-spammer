@@ -59,9 +59,9 @@ func (s *Scenario) Flags(flags *pflag.FlagSet) error {
 	flags.Uint64Var(&s.options.MaxPending, "max-pending", 0, "Maximum number of pending transactions")
 	flags.Uint64Var(&s.options.MaxWallets, "max-wallets", 0, "Maximum number of child wallets to use")
 	flags.Uint64Var(&s.options.Rebroadcast, "rebroadcast", 120, "Number of seconds to wait before re-broadcasting a transaction")
-	flags.Uint64Var(&s.options.BaseFee, "basefee", 20, "Max fee per gas to use in transfer transactions (in gplanck)")
-	flags.Uint64Var(&s.options.TipFee, "tipfee", 2, "Max tip per gas to use in transfer transactions (in gplanck)")
-	flags.Uint64Var(&s.options.Amount, "amount", 20, "Transfer amount per transaction (in gplanck)")
+	flags.Uint64Var(&s.options.BaseFee, "basefee", 20, "Max fee per gas to use in transfer transactions (in shor)")
+	flags.Uint64Var(&s.options.TipFee, "tipfee", 2, "Max tip per gas to use in transfer transactions (in shor)")
+	flags.Uint64Var(&s.options.Amount, "amount", 20, "Transfer amount per transaction (in shor)")
 	flags.BoolVar(&s.options.RandomAmount, "random-amount", false, "Use random amounts for transactions (with --amount as limit)")
 	flags.BoolVar(&s.options.RandomTarget, "random-target", false, "Use random to addresses for transactions")
 	return nil
@@ -346,10 +346,10 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 			totalAmount := new(big.Int).Add(tx.Value(), feeAmount)
 			wallet.SubBalance(totalAmount)
 
-			gplanckTotalFee := new(big.Int).Div(feeAmount, big.NewInt(1000000000))
-			gplanckBaseFee := new(big.Int).Div(effectiveGasPrice, big.NewInt(1000000000))
+			shorTotalFee := new(big.Int).Div(feeAmount, big.NewInt(1000000000))
+			shorBaseFee := new(big.Int).Div(effectiveGasPrice, big.NewInt(1000000000))
 
-			s.logger.WithField("client", client.GetName()).Debugf(" transaction %d confirmed in block #%v. total fee: %v gplanck (base: %v) logs: %v", txIdx+1, receipt.BlockNumber.String(), gplanckTotalFee, gplanckBaseFee, len(receipt.Logs))
+			s.logger.WithField("client", client.GetName()).Debugf(" transaction %d confirmed in block #%v. total fee: %v shor (base: %v) logs: %v", txIdx+1, receipt.BlockNumber.String(), shorTotalFee, shorBaseFee, len(receipt.Logs))
 		},
 		LogFn: func(client *txbuilder.Client, retry int, rebroadcast int, err error) {
 			logger := s.logger.WithField("client", client.GetName())
