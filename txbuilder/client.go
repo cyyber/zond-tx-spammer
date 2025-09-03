@@ -11,14 +11,14 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/go-zond/core/types"
+	"github.com/theQRL/go-zond/qrlclient"
 	"github.com/theQRL/go-zond/rpc"
-	"github.com/theQRL/go-zond/zondclient"
 )
 
 type Client struct {
 	Timeout time.Duration
 	rpchost string
-	client  *zondclient.Client
+	client  *qrlclient.Client
 	logger  *logrus.Entry
 
 	gasSuggestionMutex sync.Mutex
@@ -57,7 +57,7 @@ func NewClient(rpchost string) (*Client, error) {
 	}
 
 	return &Client{
-		client:  zondclient.NewClient(rpcClient),
+		client:  qrlclient.NewClient(rpcClient),
 		rpchost: rpchost,
 		logger:  logrus.WithField("client", rpchost),
 	}, nil
@@ -69,7 +69,7 @@ func (client *Client) GetName() string {
 	return name
 }
 
-func (client *Client) GetZondClient() *zondclient.Client {
+func (client *Client) GetQRLClient() *qrlclient.Client {
 	return client.client
 }
 

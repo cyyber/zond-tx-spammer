@@ -10,10 +10,10 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/theQRL/zond-tx-spammer/scenarios"
-	"github.com/theQRL/zond-tx-spammer/scenariotypes"
-	"github.com/theQRL/zond-tx-spammer/tester"
-	"github.com/theQRL/zond-tx-spammer/utils"
+	"github.com/theQRL/qrl-tx-spammer/scenarios"
+	"github.com/theQRL/qrl-tx-spammer/scenariotypes"
+	"github.com/theQRL/qrl-tx-spammer/tester"
+	"github.com/theQRL/qrl-tx-spammer/utils"
 )
 
 type CliArgs struct {
@@ -38,8 +38,8 @@ func main() {
 	flags.StringVar(&cliArgs.rpchostsFile, "rpchost-file", "", "File with a list of RPC hosts to send transactions to.")
 	flags.StringVar(&cliArgs.walletSeed, "wallet-seed", "", "The seed of the wallet to send funds from.")
 	flags.StringVar(&cliArgs.childWalletSeed, "child-wallet-seed", "", "The child wallet seed.")
-	flags.Uint64Var(&cliArgs.refillAmount, "refill-amount", 5, "Amount of Zond to fund/refill each child wallet with.")
-	flags.Uint64Var(&cliArgs.refillBalance, "refill-balance", 2, "Min amount of Zond each child wallet should hold before refilling.")
+	flags.Uint64Var(&cliArgs.refillAmount, "refill-amount", 5, "Amount of Quanta to fund/refill each child wallet with.")
+	flags.Uint64Var(&cliArgs.refillBalance, "refill-balance", 2, "Min amount of Quanta each child wallet should hold before refilling.")
 	flags.Uint64Var(&cliArgs.refillInterval, "refill-interval", 300, "Interval for child wallet rbalance check and refilling if needed (in sec).")
 
 	flags.Parse(os.Args)
@@ -107,8 +107,8 @@ func main() {
 		RpcHosts:       rpcHosts,
 		WalletSeed:     cliArgs.walletSeed,
 		WalletCount:    100,
-		WalletPrefund:  utils.ZondToPlanck(uint256.NewInt(cliArgs.refillAmount)),
-		WalletMinfund:  utils.ZondToPlanck(uint256.NewInt(cliArgs.refillBalance)),
+		WalletPrefund:  utils.QuantaToPlanck(uint256.NewInt(cliArgs.refillAmount)),
+		WalletMinfund:  utils.QuantaToPlanck(uint256.NewInt(cliArgs.refillBalance)),
 		RefillInterval: cliArgs.refillInterval,
 	}
 	err := scenario.Init(testerConfig)

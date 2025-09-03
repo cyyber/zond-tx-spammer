@@ -5,11 +5,11 @@ import (
 	"github.com/theQRL/go-zond/params"
 )
 
-func ZondToPlanck(val *uint256.Int) *uint256.Int {
-	return new(uint256.Int).Mul(val, uint256.NewInt(params.Zond))
+func QuantaToPlanck(val *uint256.Int) *uint256.Int {
+	return new(uint256.Int).Mul(val, uint256.NewInt(params.Quanta))
 }
 
-func PlanckToZond(val *uint256.Int) *uint256.Int {
+func PlanckToQuanta(val *uint256.Int) *uint256.Int {
 	if val == nil {
 		return nil
 	}

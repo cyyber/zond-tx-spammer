@@ -8,17 +8,16 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/theQRL/zond-tx-spammer/utils"
-
 	"github.com/holiman/uint256"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/theQRL/go-zond/accounts/abi/bind"
 	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/go-zond/core/types"
-	"github.com/theQRL/zond-tx-spammer/scenariotypes"
-	"github.com/theQRL/zond-tx-spammer/tester"
-	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/qrl-tx-spammer/scenariotypes"
+	"github.com/theQRL/qrl-tx-spammer/tester"
+	"github.com/theQRL/qrl-tx-spammer/txbuilder"
+	"github.com/theQRL/qrl-tx-spammer/utils"
 )
 
 type ScenarioOptions struct {
@@ -55,8 +54,8 @@ func (s *Scenario) Flags(flags *pflag.FlagSet) error {
 	flags.Uint64Var(&s.options.MaxPending, "max-pending", 0, "Maximum number of pending transactions")
 	flags.Uint64Var(&s.options.MaxWallets, "max-wallets", 0, "Maximum number of child wallets to use")
 	flags.Uint64Var(&s.options.Rebroadcast, "rebroadcast", 120, "Number of seconds to wait before re-broadcasting a transaction")
-	flags.Uint64Var(&s.options.BaseFee, "basefee", 20, "Max fee per gas to use in gasburner transactions (in gplanck)")
-	flags.Uint64Var(&s.options.TipFee, "tipfee", 2, "Max tip per gas to use in gasburner transactions (in gplanck)")
+	flags.Uint64Var(&s.options.BaseFee, "basefee", 20, "Max fee per gas to use in gasburner transactions (in shor)")
+	flags.Uint64Var(&s.options.TipFee, "tipfee", 2, "Max tip per gas to use in gasburner transactions (in shor)")
 	flags.Uint64Var(&s.options.GasUnitsToBurn, "gas-units-to-burn", 2000000, "The number of gas units for each tx to cost")
 
 	return nil
@@ -208,7 +207,7 @@ func (s *Scenario) sendDeploymentTx() (*types.Receipt, *txbuilder.Client, error)
 		GasTipCap: uint256.MustFromBig(tipCap),
 		Gas:       2000000,
 	}, func(transactOpts *bind.TransactOpts) (*types.Transaction, error) {
-		_, deployTx, _, err := DeployGasBurner(transactOpts, client.GetZondClient())
+		_, deployTx, _, err := DeployGasBurner(transactOpts, client.GetQRLClient())
 		return deployTx, err
 	})
 	if err != nil {
@@ -323,10 +322,10 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 			totalAmount := new(big.Int).Add(tx.Value(), feeAmount)
 			wallet.SubBalance(totalAmount)
 
-			gplanckTotalFee := new(big.Int).Div(feeAmount, big.NewInt(1000000000))
-			gplanckBaseFee := new(big.Int).Div(effectiveGasPrice, big.NewInt(1000000000))
+			shorTotalFee := new(big.Int).Div(feeAmount, big.NewInt(1000000000))
+			shorBaseFee := new(big.Int).Div(effectiveGasPrice, big.NewInt(1000000000))
 
-			s.logger.WithField("client", client.GetName()).Debugf(" transaction %d confirmed in block #%v. total fee: %v gplanck (base: %v) logs: %v", txIdx+1, receipt.BlockNumber.String(), gplanckTotalFee, gplanckBaseFee, len(receipt.Logs))
+			s.logger.WithField("client", client.GetName()).Debugf(" transaction %d confirmed in block #%v. total fee: %v shor (base: %v) logs: %v", txIdx+1, receipt.BlockNumber.String(), shorTotalFee, shorBaseFee, len(receipt.Logs))
 		},
 		LogFn: func(client *txbuilder.Client, retry int, rebroadcast int, err error) {
 			logger := s.logger.WithField("client", client.GetName())
@@ -355,5 +354,5 @@ func (s *Scenario) sendTx(txIdx uint64) (*types.Transaction, *txbuilder.Client, 
 
 func (s *Scenario) GetGasBurner() (*GasBurner, error) {
 	client := s.tester.GetClient(tester.SelectByIndex, 0)
-	return NewGasBurner(s.gasBurnerContractAddr, client.GetZondClient())
+	return NewGasBurner(s.gasBurnerContractAddr, client.GetQRLClient())
 }

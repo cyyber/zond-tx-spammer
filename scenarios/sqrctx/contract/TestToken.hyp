@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma hyperion >=0.1.0;
 
-import "contracts/token/ZRC20/ZRC20.hyp";
-import "contracts/token/ZRC20/extensions/ZRC20Burnable.hyp";
+import "contracts/token/SQRCTF1/SQRCTF1.hyp";
+import "contracts/token/SQRCTF1/extensions/SQRCTF1Burnable.hyp";
 
-contract TestToken is ZRC20, ZRC20Burnable {
+contract TestToken is SQRCTF1, SQRCTF1Burnable {
 
-    constructor() ZRC20("TestToken", "TT") {
+    constructor() SQRCTF1("TestToken", "TT") {
     }
 
     function mint(uint256 amount) public {

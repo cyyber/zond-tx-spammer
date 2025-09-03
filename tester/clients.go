@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/theQRL/zond-tx-spammer/txbuilder"
+	"github.com/theQRL/qrl-tx-spammer/txbuilder"
 )
 
 func (tester *Tester) PrepareClients() error {

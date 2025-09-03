@@ -74,7 +74,7 @@ jobs:
     with:
       ref: ${{ needs.prinfo.outputs.commit_ref }}
       docker: ${{ needs.prinfo.outputs.build_docker == 'true' }}
-      docker_repository: "theqrl/zond-tx-spammer"
+      docker_repository: "theqrl/qrl-tx-spammer"
       docker_tag_prefix: ${{needs.prinfo.outputs.docker_tag}}
       additional_tags: "['${{needs.prinfo.outputs.docker_tag}}','${{needs.prinfo.outputs.docker_tag}}-latest']"
     secrets:
