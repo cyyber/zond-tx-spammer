@@ -112,8 +112,8 @@ github.com/prysmaticlabs/fastssz v0.0.0-20221107182844-78142813af44 h1:c3p3UzV4v
 github.com/prysmaticlabs/fastssz v0.0.0-20221107182844-78142813af44/go.mod h1:MA5zShstUwCQaE9faGHgCGvEWUbG87p4SAXINhmCkvg=
 github.com/prysmaticlabs/gohashtree v0.0.3-alpha h1:1EVinCWdb3Lorq7xn8DYQHf48nCcdAM3Vb18KsFlRWY=
 github.com/prysmaticlabs/gohashtree v0.0.3-alpha/go.mod h1:4pWaT30XoEx1j8KNJf3TV+E3mQkaufn7mf+jRNb/Fuk=
-github.com/rgeraldes24/go-zond v0.0.0-20250901090932-5b28406187a1 h1:PfQCCl4VUvOpG9NX2Q5LgePiR6JvP1h7//Xsh7C5eWQ=
-github.com/rgeraldes24/go-zond v0.0.0-20250901090932-5b28406187a1/go.mod h1:7LdYdNTiPW2m/pHqlA+4+66RSyMPCCknFcP8UMdcoGE=
+github.com/rgeraldes24/go-zond v0.0.0-20251114154221-6a5b08a7585f h1:VnktGX059jLtJ19KDPk5/Ic3OpeY67TO7f+yjdgPWE4=
+github.com/rgeraldes24/go-zond v0.0.0-20251114154221-6a5b08a7585f/go.mod h1:Ycwx3lbp3Y1eKmT3lCpo/laSKluRXA+kY0iI/97JZR4=
 github.com/rogpeppe/go-internal v1.12.0 h1:exVL4IDcn6na9z1rAb56Vxr+CgyK3nn3O+epU5NdKM8=
 github.com/rogpeppe/go-internal v1.12.0/go.mod h1:E+RYuTGaKKdloAfM02xzb0FW3Paa99yedzYV+kq4uf4=
 github.com/rs/cors v1.7.0 h1:+88SsELBHx5r+hZ8TCkggzSstaWNbDvThkVK8H6f9ik=
@@ -132,8 +132,8 @@ github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsT
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 h1:epCh84lMvA70Z7CTTCmYQn2CKbY8j86K7/FAIr141uY=
 github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7/go.mod h1:q4W45IWZaF22tdD+VEXcAWRA037jwmWEB5VWYORlTpc=
-github.com/theQRL/go-qrllib v0.0.0-20230406170304-b7eb19c367e1 h1:YvUxImh18qCxX1rjvYF9wqAAL236s2FqrjzTRqg5Alg=
-github.com/theQRL/go-qrllib v0.0.0-20230406170304-b7eb19c367e1/go.mod h1:IspDEOeIlmm6GujPeTNygL3T72MUluDDyUa20AisjaQ=
+github.com/theQRL/go-qrllib v0.0.0-20251008091143-a411d9a85341 h1:gQ/ERlk4l4fyJtf8V4DOqn2qThTRMSPDVqmqekIwiso=
+github.com/theQRL/go-qrllib v0.0.0-20251008091143-a411d9a85341/go.mod h1:K2QakL8Z3Nrm7fx+SeKYjVrInu0s9WitHHMyUihBkwQ=
 github.com/tklauser/go-sysconf v0.3.12 h1:0QaGUFOdQaIVdPgfITYzaTegZvdCjmYO52cSFAEVmqU=
 github.com/tklauser/go-sysconf v0.3.12/go.mod h1:Ho14jnntGE1fpdOqQEEaiKRpvIavV0hSfmBq8nJbHYI=
 github.com/tklauser/numcpus v0.6.1 h1:ng9scYS7az0Bk4OZLvrNXNSAO2Pxr1XXRAPyjhIx+Fk=
