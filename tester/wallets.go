@@ -136,10 +136,10 @@ func (tester *Tester) prepareChildWallet(childIdx uint64, client *txbuilder.Clie
 		idxBytes = append(idxBytes, childWalletSeedBytes...)
 	}
 
-	desc := tester.rootWallet.GetDescriptor()
+	rootDesc := tester.rootWallet.GetDescriptor()
 	childKey := sha256.Sum256(append(common.FromHex(tester.config.WalletSeed), idxBytes...))
-	seedBytes := append(desc.ToBytes(), PadTo(childKey[:], 48)...)
-	childWallet, err := txbuilder.NewWallet(common.Bytes2Hex(seedBytes))
+	childSeedBytes := append(rootDesc.ToBytes(), PadTo(childKey[:], 48)...)
+	childWallet, err := txbuilder.NewWallet(common.Bytes2Hex(childSeedBytes))
 	if err != nil {
 		return nil, nil, err
 	}
