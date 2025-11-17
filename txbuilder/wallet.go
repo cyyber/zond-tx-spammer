@@ -18,7 +18,7 @@ type Wallet struct {
 	nonceMutex   sync.Mutex
 	balanceMutex sync.RWMutex
 
-	internalWallet pqwallet.Wallet
+	wallet         pqwallet.Wallet
 	address        common.Address
 	chainid        *big.Int
 	pendingNonce   atomic.Uint64
@@ -42,16 +42,16 @@ func NewWallet(seed string) (*Wallet, error) {
 	}
 
 	wallet := &Wallet{
-		txNonceChans:   map[uint64]*nonceStatus{},
-		internalWallet: w,
-		address:        w.GetAddress(),
+		txNonceChans: map[uint64]*nonceStatus{},
+		wallet:       w,
+		address:      w.GetAddress(),
 	}
 
 	return wallet, nil
 }
 
 func (wallet *Wallet) GetDescriptor() descriptor.Descriptor {
-	return wallet.internalWallet.GetDescriptor()
+	return wallet.wallet.GetDescriptor()
 }
 
 func (wallet *Wallet) GetAddress() common.Address {
@@ -121,7 +121,7 @@ func (wallet *Wallet) BuildDynamicFeeTx(txData *types.DynamicFeeTx) (*types.Tran
 }
 
 func (wallet *Wallet) BuildBoundTx(txData *TxMetadata, buildFn func(transactOpts *bind.TransactOpts) (*types.Transaction, error)) (*types.Transaction, error) {
-	transactor, err := bind.NewKeyedTransactorWithChainID(wallet.internalWallet, wallet.chainid)
+	transactor, err := bind.NewKeyedTransactorWithChainID(wallet.wallet, wallet.chainid)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (wallet *Wallet) ResetPendingNonce(client *Client) {
 
 func (wallet *Wallet) signTx(txData types.TxData) (*types.Transaction, error) {
 	tx := types.NewTx(txData)
-	signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(wallet.chainid), wallet.internalWallet)
+	signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(wallet.chainid), wallet.wallet)
 	if err != nil {
 		return nil, err
 	}
