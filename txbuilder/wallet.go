@@ -15,9 +15,8 @@ import (
 )
 
 type Wallet struct {
-	nonceMutex   sync.Mutex
-	balanceMutex sync.RWMutex
-
+	nonceMutex     sync.Mutex
+	balanceMutex   sync.RWMutex
 	wallet         pqwallet.Wallet
 	address        common.Address
 	chainid        *big.Int
