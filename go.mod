@@ -13,7 +13,6 @@ require (
 require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
-	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
 	github.com/deckarep/golang-set/v2 v2.6.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -29,4 +28,4 @@ require (
 	golang.org/x/sys v0.36.0 // indirect
 )
 
-replace github.com/theQRL/go-zond => github.com/rgeraldes24/go-zond v0.0.0-20260108182712-398586b78118
+replace github.com/theQRL/go-zond => github.com/rgeraldes24/go-zond v0.0.0-20260129114101-740e33e3fc24
