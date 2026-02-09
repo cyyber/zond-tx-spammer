@@ -7,16 +7,17 @@ import (
 	"sync/atomic"
 
 	"github.com/sirupsen/logrus"
-	"github.com/theQRL/go-qrllib/dilithium"
+	"github.com/theQRL/go-qrllib/wallet/common/descriptor"
 	"github.com/theQRL/go-zond/accounts/abi/bind"
 	"github.com/theQRL/go-zond/common"
 	"github.com/theQRL/go-zond/core/types"
+	pqwallet "github.com/theQRL/go-zond/crypto/pqcrypto/wallet"
 )
 
 type Wallet struct {
 	nonceMutex     sync.Mutex
 	balanceMutex   sync.RWMutex
-	dilithiumKey   *dilithium.Dilithium
+	wallet         pqwallet.Wallet
 	address        common.Address
 	chainid        *big.Int
 	pendingNonce   atomic.Uint64
@@ -34,43 +35,26 @@ type nonceStatus struct {
 }
 
 func NewWallet(seed string) (*Wallet, error) {
-	wallet := &Wallet{
-		txNonceChans: map[uint64]*nonceStatus{},
-	}
-	err := wallet.loadKeyFromSeed(seed)
+	w, err := pqwallet.RestoreFromSeedHex(seed)
 	if err != nil {
 		return nil, err
 	}
+
+	wallet := &Wallet{
+		txNonceChans: map[uint64]*nonceStatus{},
+		wallet:       w,
+		address:      w.GetAddress(),
+	}
+
 	return wallet, nil
 }
 
-func (wallet *Wallet) loadKeyFromSeed(seed string) error {
-	var dilithiumKey *dilithium.Dilithium
-	if seed == "" {
-		var err error
-		dilithiumKey, err = dilithium.New()
-		if err != nil {
-			return err
-		}
-	} else {
-		var err error
-		dilithiumKey, err = dilithium.NewDilithiumFromHexSeed(seed)
-		if err != nil {
-			return err
-		}
-	}
-
-	wallet.dilithiumKey = dilithiumKey
-	wallet.address = dilithiumKey.GetAddress()
-	return nil
+func (wallet *Wallet) GetDescriptor() descriptor.Descriptor {
+	return wallet.wallet.GetDescriptor()
 }
 
 func (wallet *Wallet) GetAddress() common.Address {
 	return wallet.address
-}
-
-func (wallet *Wallet) GetDilithiumKey() *dilithium.Dilithium {
-	return wallet.dilithiumKey
 }
 
 func (wallet *Wallet) GetChainId() *big.Int {
@@ -136,7 +120,7 @@ func (wallet *Wallet) BuildDynamicFeeTx(txData *types.DynamicFeeTx) (*types.Tran
 }
 
 func (wallet *Wallet) BuildBoundTx(txData *TxMetadata, buildFn func(transactOpts *bind.TransactOpts) (*types.Transaction, error)) (*types.Transaction, error) {
-	transactor, err := bind.NewKeyedTransactorWithChainID(wallet.dilithiumKey, wallet.chainid)
+	transactor, err := bind.NewKeyedTransactorWithChainID(wallet.wallet, wallet.chainid)
 	if err != nil {
 		return nil, err
 	}
@@ -187,7 +171,7 @@ func (wallet *Wallet) ResetPendingNonce(client *Client) {
 
 func (wallet *Wallet) signTx(txData types.TxData) (*types.Transaction, error) {
 	tx := types.NewTx(txData)
-	signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(wallet.chainid), wallet.dilithiumKey)
+	signedTx, err := types.SignTx(tx, types.LatestSignerForChainID(wallet.chainid), wallet.wallet)
 	if err != nil {
 		return nil, err
 	}
